@@ -1,19 +1,17 @@
-import Hero from "@/components/portfolio/Hero";
-import About from "@/components/portfolio/About";
-import Projects from "@/components/portfolio/Projects";
-import Skills from "@/components/portfolio/Skills";
-import Education from "@/components/portfolio/Education";
-import Contact from "@/components/portfolio/Contact";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import HeroSection from "@/components/sections/HeroSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import TechnologiesSection from "@/components/sections/TechnologiesSection";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Education />
-      <Contact />
+      <Navbar />
+      <HeroSection />
+      <ProjectsSection />
+      <TechnologiesSection />
+      <Footer />
     </div>
   );
 };
