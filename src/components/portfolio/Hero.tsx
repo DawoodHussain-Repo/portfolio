@@ -49,7 +49,7 @@ const Hero = () => {
             <Button 
               variant="outline" 
               size="lg"
-              className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-3 rounded-lg hover-lift transition-all duration-300"
+              className="border-primary/50 text-primary bg-purple-600  px-8 py-3 rounded-lg hover-lift transition-all duration-300"
             >
               <ExternalLink className="mr-2" size={20} />
               Download CV

@@ -44,14 +44,27 @@ const Contact = () => {
               <Send className="mr-2" size={20} />
               Send Message
             </Button>
-            
             <Button 
               variant="outline"
               size="lg" 
               className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-3 rounded-lg hover-lift"
+              asChild
             >
-              <Github className="mr-2" size={20} />
-              GitHub Profile
+              <a href="https://github.com/dawoodhussain90999" target="_blank" rel="noopener noreferrer">
+                <Github className="mr-2" size={20} />
+                GitHub Profile
+              </a>
+            </Button>
+            <Button 
+              variant="outline"
+              size="lg" 
+              className="border-primary/50 text-primary hover:bg-primary/10 px-8 py-3 rounded-lg hover-lift"
+              asChild
+            >
+              <a href="https://www.linkedin.com/in/dawood-hussain-6a800622a/" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="mr-2" size={20} />
+                LinkedIn Profile
+              </a>
             </Button>
           </div>
         </div>

@@ -1,174 +1,57 @@
-const technologies = [
-  {
-    name: "React",
-    category: "Frontend",
-    icon: "⚛️",
-    color: "from-cyan-400 to-blue-500"
-  },
-  {
-    name: "Next.js",
-    category: "Frontend",
-    icon: "▲",
-    color: "from-gray-400 to-gray-600"
-  },
-  {
-    name: "TypeScript",
-    category: "Language",
-    icon: "🔷",
-    color: "from-blue-500 to-blue-700"
-  },
-  {
-    name: "Node.js",
-    category: "Backend",
-    icon: "🟢",
-    color: "from-green-500 to-green-700"
-  },
-  {
-    name: "Express",
-    category: "Backend",
-    icon: "🚀",
-    color: "from-gray-500 to-gray-700"
-  },
-  {
-    name: "MongoDB",
-    category: "Database",
-    icon: "🍃",
-    color: "from-green-400 to-green-600"
-  },
-  {
-    name: "PostgreSQL",
-    category: "Database",
-    icon: "🐘",
-    color: "from-blue-400 to-blue-600"
-  },
-  {
-    name: "Tailwind CSS",
-    category: "Styling",
-    icon: "🎨",
-    color: "from-cyan-500 to-teal-500"
-  },
-  {
-    name: "GSAP",
-    category: "Animation",
-    icon: "✨",
-    color: "from-purple-500 to-pink-500"
-  },
-  {
-    name: "Three.js",
-    category: "3D Graphics",
-    icon: "🎲",
-    color: "from-yellow-500 to-orange-500"
-  },
-  {
-    name: "JWT",
-    category: "Auth",
-    icon: "🔐",
-    color: "from-red-500 to-red-700"
-  },
-  {
-    name: "Stripe",
-    category: "Payment",
-    icon: "💳",
-    color: "from-purple-600 to-blue-600"
-  },
-  {
-    name: "Figma",
-    category: "Design",
-    icon: "🎨",
-    color: "from-purple-400 to-pink-400"
-  },
-  {
-    name: "Git",
-    category: "Version Control",
-    icon: "📦",
-    color: "from-orange-500 to-red-500"
-  },
-  {
-    name: "Docker",
-    category: "DevOps",
-    icon: "🐳",
-    color: "from-blue-500 to-cyan-500"
-  },
-  {
-    name: "AWS",
-    category: "Cloud",
-    icon: "☁️",
-    color: "from-orange-400 to-yellow-500"
-  }
+"use client";
+import React from "react";
+
+const skills = [
+  { name: "React", icon: "⚛️", color: "#61DBFB" },
+  { name: "Next.js", icon: "▲", color: "#fffff" },
+  { name: "Tailwind CSS", icon: "🎨", color: "#38BDF8" },
+  { name: "shadcn/ui", icon: "🧩", color: "#A855F7" },
+  { name: "lucide-react", icon: "🖼️", color: "#6366F1" },
+  { name: "Framer Motion", icon: "🎞️", color: "#E0248C" },
+  { name: "WordPress", icon: "🌐", color: "#21759B" },
+  { name: "Neo4j", icon: "🕸️", color: "#018BFF" },
+  { name: "Spoon", icon: "🥄", color: "#6B7280" },
+  { name: "Unreal Engine 5", icon: "🎮", color: "#0E1128" },
+  { name: "Odoo", icon: "🟣", color: "#714B67" },
+  { name: "GSAP", icon: "✨", color: "#88CE02" },
+  { name: "Three.js", icon: "🎲", color: "#FF9900" },
+  { name: "Sanity", icon: "📝", color: "#F03E2F" },
+  { name: "Sentry", icon: "⚡", color: "#FB4226" },
+  { name: "Blender", icon: "🍊", color: "#F5792A" },
+  { name: "Jupyter", icon: "📓", color: "#F37726" },
+  { name: "GitHub", icon: "🐙", color: "#181717" },
+  { name: "Figma", icon: "🎨", color: "#F24E1E" },
+  { name: "TypeScript", icon: "🔷", color: "#3178C6" },
+  { name: "Node.js", icon: "🟢", color: "#339933" },
+  { name: "Express", icon: "🚀", color: "#404040" },
+  { name: "MongoDB", icon: "🍃", color: "#47A248" },
+  { name: "PostgreSQL", icon: "🐘", color: "#336791" },
+  { name: "JWT", icon: "🔐", color: "#D63AFF" },
+  { name: "Stripe", icon: "💳", color: "#635BFF" },
+  { name: "Git", icon: "📦", color: "#F05032" },
+  { name: "Docker", icon: "🐳", color: "#2496ED" },
+  { name: "AWS", icon: "☁️", color: "#FF9900" },
 ];
 
-const categories = Array.from(new Set(technologies.map(tech => tech.category)));
-
-const TechnologiesSection = () => {
+export default function Skills() {
   return (
-    <section id="technologies" className="py-20 px-6 bg-background">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-display text-5xl md:text-6xl mb-16 text-center animate-fade-in">
-          Technologies <span className="text-primary">&</span> Skills
-        </h2>
-        
-        <div className="space-y-12">
-          {categories.map((category, categoryIndex) => (
-            <div key={category} className="animate-slide-up" style={{ animationDelay: `${categoryIndex * 0.2}s` }}>
-              <h3 className="text-2xl font-bold text-primary mb-6 text-center">
-                {category}
-              </h3>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {technologies
-                  .filter(tech => tech.category === category)
-                  .map((tech, index) => (
-                    <div 
-                      key={tech.name}
-                      className="glass-card backdrop-blur-xl bg-glass-background/20 border border-glass-border/30 p-4 rounded-2xl hover-lift transition-all duration-500 group text-center"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      {/* Icon */}
-                      <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                        {tech.icon}
-                      </div>
-                      
-                      {/* Tech Name */}
-                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                        {tech.name}
-                      </h4>
-                      
-                      {/* Gradient Bar */}
-                      <div className="mt-3 h-1 rounded-full bg-gradient-to-r opacity-60 group-hover:opacity-100 transition-opacity duration-300" 
-                           style={{
-                             background: `linear-gradient(to right, var(--primary), var(--primary-glow))`
-                           }} 
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Additional Skills */}
-        <div className="mt-16 text-center">
-          <div className="glass-card backdrop-blur-xl bg-glass-background/20 border border-glass-border/30 p-8 rounded-2xl">
-            <h3 className="text-2xl font-bold text-primary mb-6">Additional Skills</h3>
-            <div className="flex flex-wrap justify-center gap-3">
-              {[
-                "Problem Solving", "AI Tools", "Modular Designs", 
-                "Software Quality Assurance", "SEO Optimizations", 
-                "Backend Engineering", "Design Semantics"
-              ].map((skill) => (
-                <span 
-                  key={skill}
-                  className="px-4 py-2 bg-primary/10 text-primary border border-primary/30 rounded-full text-sm font-medium hover:bg-primary/20 transition-colors duration-300"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+    <section id="skills" className="py-20">
+      <h2 className="text-4xl font-bold text-center mb-12">Skills</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 max-w-6xl mx-auto px-6">
+        {skills.map((skill, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center justify-center text-center space-y-2"
+          >
+            <span className="text-5xl" style={{ color: skill.color }}>
+              {skill.icon}
+            </span>
+            <span className="font-medium text-lg" style={{ color: skill.color }}>
+              {skill.name}
+            </span>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
-};
-
-export default TechnologiesSection;
+}
