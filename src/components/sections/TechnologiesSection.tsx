@@ -169,7 +169,7 @@ const TechnologiesSection = () => {
   const tabsRef = useRef<HTMLDivElement>(null);
   const techGridRef = useRef<HTMLDivElement>(null);
 
-  {/*Ver 1 */}
+  {/*Ver 1.0 */}
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Set initial states
