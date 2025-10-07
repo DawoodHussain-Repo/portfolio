@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Technology data with categories and proper logos
 const technologies = {
@@ -169,48 +172,90 @@ const TechnologiesSection = () => {
   const tabsRef = useRef<HTMLDivElement>(null);
   const techGridRef = useRef<HTMLDivElement>(null);
 
-  {/*Ver 1.0 */}
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Set initial states
-      gsap.set([headerRef.current, tabsRef.current, techGridRef.current], {
-        opacity: 0,
-        y: 30,
-      });
+      // Only animate if refs are available
+      if (headerRef.current && tabsRef.current && techGridRef.current) {
+        // Set initial states
+        gsap.set([headerRef.current, tabsRef.current], {
+          opacity: 0,
+          y: 50,
+        });
 
-      // Create timeline
-      const tl = gsap.timeline({ delay: 0.2 });
+        gsap.set(techGridRef.current, {
+          opacity: 0,
+          y: 30,
+        });
 
-      tl.to(headerRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-      })
-        .to(
-          tabsRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power2.out",
+        // Header animation with scroll trigger
+        gsap.to(headerRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
           },
-          "-=0.4"
-        )
-        .to(
-          techGridRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power2.out",
+        });
+
+        // Tabs animation
+        gsap.to(tabsRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          delay: 0.2,
+          scrollTrigger: {
+            trigger: tabsRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
           },
-          "-=0.3"
-        );
+        });
+
+        // Tech grid animation
+        gsap.to(techGridRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: techGridRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
+
+  // Animation for category switching
+  useEffect(() => {
+    const techCards = techGridRef.current?.querySelectorAll(".tech-card");
+    if (techCards && techCards.length > 0) {
+      gsap.fromTo(
+        techCards,
+        {
+          opacity: 0,
+          scale: 0.8,
+          y: 20,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.4,
+          ease: "back.out(1.7)",
+          stagger: 0.05,
+        }
+      );
+    }
+  }, [activeCategory]);
 
   return (
     <section
@@ -218,11 +263,12 @@ const TechnologiesSection = () => {
       id="technologies"
       className="min-h-screen pt-16 sm:pt-20 md:pt-24 bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 relative overflow-hidden"
     >
-      {/* Background Elements */}
+      {/* Enhanced Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-48 sm:w-64 md:w-72 h-48 sm:h-64 md:h-72 bg-purple-100/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-20 w-56 sm:w-72 md:w-96 h-56 sm:h-72 md:h-96 bg-blue-100/15 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 bg-purple-50/30 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-20 w-48 sm:w-64 md:w-72 h-48 sm:h-64 md:h-72 bg-purple-200/30 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-56 sm:w-72 md:w-96 h-56 sm:h-72 md:h-96 bg-blue-200/25 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 sm:w-64 md:w-80 h-48 sm:h-64 md:h-80 bg-purple-100/40 rounded-full blur-3xl animate-pulse delay-500" />
+        <div className="absolute top-1/4 right-1/3 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 bg-indigo-100/20 rounded-full blur-2xl animate-pulse delay-2000" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-16 sm:py-20">
@@ -245,13 +291,16 @@ const TechnologiesSection = () => {
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-2 sm:px-4 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base text-center ${
+                  className={`relative px-2 sm:px-4 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 text-xs sm:text-sm md:text-base text-center overflow-hidden group ${
                     activeCategory === category
-                      ? "bg-purple-600 text-white shadow-lg"
-                      : "bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                      ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg transform scale-105"
+                      : "bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-white hover:shadow-md hover:scale-102"
                   }`}
                 >
-                  {category}
+                  <span className="relative z-10">{category}</span>
+                  {activeCategory !== category && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-700 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+                  )}
                 </button>
               ))}
             </div>
@@ -265,14 +314,14 @@ const TechnologiesSection = () => {
               (tech, index) => (
                 <div
                   key={tech.name}
-                  className="group relative"
+                  className="tech-card group relative"
                   onMouseEnter={() => setHoveredTech(tech.name)}
                   onMouseLeave={() => setHoveredTech(null)}
                   style={{
                     animationDelay: `${index * 100}ms`,
                   }}
                 >
-                  <div className="bg-white/70 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 sm:p-6 hover:border-purple-300 transition-all duration-500 hover:shadow-xl hover:shadow-purple-100 hover:-translate-y-2 group">
+                  <div className="relative bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl p-4 sm:p-6 hover:border-purple-300 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-100/50 hover:-translate-y-3 group overflow-hidden">
                     {/* Hover glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-100/50 via-blue-100/50 to-purple-100/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
 

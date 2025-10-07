@@ -56,9 +56,12 @@ const Footer = () => {
               <p className="text-slate-600 text-sm mb-2">
                 dawood90999@gmail.com
               </p>
-              <p className="text-xs text-slate-500">
-                Available 24/7 for inquiries
-              </p>
+              <a
+                href="mailto:dawood90999@gmail.com"
+                className="text-purple-600 hover:text-purple-700 font-medium transition-colors"
+              >
+                Send Message
+              </a>
             </div>
 
             {/* Phone */}
@@ -72,10 +75,13 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-2 text-slate-900">
                 Call Me
               </h3>
-              <p className="text-slate-600 text-sm mb-2">+92 305-4449099</p>
-              <p className="text-xs text-slate-500">
-                Available Mon-Fri, 9AM-6PM PKT
-              </p>
+              <p className="text-slate-600 text-sm mb-2">+92 3054449099</p>
+              <a
+                href="tel:+923001234567"
+                className="text-purple-600 hover:text-purple-700 font-medium transition-colors"
+              >
+                Give a Call
+              </a>
             </div>
 
             {/* Location */}
@@ -89,10 +95,8 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-2 text-slate-900">
                 Visit Me
               </h3>
-              <p className="text-slate-600 text-sm mb-2">Islamabad, Pakistan</p>
-              <p className="text-xs text-slate-500">
-                Open to remote & on-site work
-              </p>
+              <p className="text-slate-600 text-sm mb-2">Lahore, Pakistan</p>
+              <span className="text-purple-600 font-medium">Available</span>
             </div>
           </div>
 
@@ -102,41 +106,35 @@ const Footer = () => {
               Follow My Journey
             </h3>
             <div className="flex justify-center items-center gap-6">
-              {socialLinks.map((social) => {
-                const IconComponent = social.icon;
-                return (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`bg-white border-2 border-purple-200 p-4 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg ${social.color} hover:border-purple-600`}
-                    aria-label={social.name}
-                  >
-                    <IconComponent size={24} />
-                  </a>
-                );
-              })}
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-14 h-14 rounded-full border-2 border-purple-600 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg ${social.color}`}
+                  title={social.name}
+                >
+                  <social.icon size={24} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-center md:text-left">
-              <p className="text-slate-600 text-sm">
+          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <div className="mb-4 md:mb-0">
+              <p className="text-slate-700 font-medium">
                 © {currentYear} Dawood Hussain. All rights reserved.
               </p>
-              <p className="text-slate-500 text-xs mt-1">
-                Crafted with modern web technologies & clean design
+              <p className="text-slate-500 text-sm">
+                Built with React, TypeScript & Tailwind CSS
               </p>
             </div>
-
-            <div className="flex items-center gap-4">
-              <div className="text-2xl font-bold text-purple-600">DH</div>
-              <div className="w-px h-8 bg-slate-200" />
-              <div className="text-sm text-slate-500">Software Engineer</div>
+            <div className="text-slate-600">
+              <p className="text-sm">Made with ❤️ and lots of ☕</p>
             </div>
           </div>
         </div>
