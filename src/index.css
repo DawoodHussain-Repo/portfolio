@@ -2,169 +2,209 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Professional Portfolio Design System - Pitch Black with Graphite & Purple Glass Morphism */
+/* iOS 26 NeoGlass Portfolio - Futuristic Minimalism */
 
 @layer base {
   :root {
-    /* Core Colors - Pitch Black Theme */
-    --background: 0 0% 2%;
-    --foreground: 0 0% 95%;
+    /* Light Theme - iOS 26 NeoGlass */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
     
-    /* Glass Morphism Cards */
-    --glass-background: 0 0% 8%;
-    --glass-border: 0 0% 15%;
-    --glass-foreground: 0 0% 90%;
+    /* NeoGlass System */
+    --glass-background: 0 0% 100%;
+    --glass-border: 0 0% 90%;
+    --glass-foreground: 0 0% 10%;
     
     /* Purple Accent System */
     --primary: 271 81% 56%;
-    --primary-foreground: 0 0% 98%;
+    --primary-foreground: 0 0% 100%;
     --primary-glow: 271 100% 70%;
     
-    /* Secondary Purple Variants */
+    /* Secondary */
     --secondary: 271 15% 20%;
-    --secondary-foreground: 271 20% 85%;
+    --secondary-foreground: 0 0% 100%;
     
-    /* Graphite Grays */
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
+    /* Muted */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
     
     --accent: 271 30% 25%;
-    --accent-foreground: 271 20% 90%;
+    --accent-foreground: 0 0% 100%;
     
-    /* Status Colors */
+    /* Status */
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
     
     --success: 142 76% 36%;
-    --success-foreground: 0 0% 98%;
+    --success-foreground: 0 0% 100%;
     
     /* Borders & Inputs */
-    --border: 0 0% 15%;
-    --input: 0 0% 10%;
+    --border: 0 0% 90%;
+    --input: 0 0% 96%;
     --ring: 271 81% 56%;
     
-    /* Glass Effect Variables */
-    --glass-blur: blur(16px);
-    --glass-opacity: 0.1;
-    --glass-border-opacity: 0.2;
+    /* NeoGlass Variables */
+    --glass-blur: blur(20px);
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(271 81% 56% / 0.8), hsl(271 100% 70% / 0.4));
-    --gradient-glass: linear-gradient(135deg, hsl(0 0% 8% / 0.8), hsl(0 0% 12% / 0.4));
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 2%), hsl(271 30% 8%));
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 98%), hsl(271 100% 98%), hsl(0 0% 96%));
     
     /* Shadows */
-    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.3);
+    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.1);
     --shadow-purple-glow: 0 0 40px hsl(271 81% 56% / 0.3);
-    --shadow-elevation: 0 4px 20px hsl(0 0% 0% / 0.5);
     
-    /* Typography */
-    --font-display: 'Inter', system-ui, sans-serif;
-    --font-body: 'Inter', system-ui, sans-serif;
+    /* Typography - Google Fonts */
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --radius: 1.25rem;
+  }
+
+  .dark {
+    /* Dark Theme */
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
     
-    --radius: 0.75rem;
+    --glass-background: 0 0% 10%;
+    --glass-border: 0 0% 20%;
+    --glass-foreground: 0 0% 90%;
+    
+    --primary: 271 81% 56%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 271 100% 70%;
+    
+    --secondary: 271 15% 30%;
+    --secondary-foreground: 0 0% 90%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    
+    --accent: 271 30% 35%;
+    --accent-foreground: 0 0% 95%;
+    
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 271 81% 56%;
+    
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 5%), hsl(271 30% 8%), hsl(0 0% 8%));
+    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.5);
   }
 }
 
 @layer components {
-  /* Glass Morphism Base */
-  .glass-card {
-    @apply relative overflow-hidden;
-    background: linear-gradient(135deg, hsl(var(--glass-background) / 0.8), hsl(var(--glass-background) / 0.4));
-    backdrop-filter: var(--glass-blur);
-    border: 1px solid hsl(var(--glass-border) / var(--glass-border-opacity));
+  /* iOS 26 NeoGlass Components */
+  .neoglass-card {
+    @apply relative overflow-hidden rounded-[20px] bg-white/80 dark:bg-slate-900/80;
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid hsl(var(--border));
     box-shadow: var(--shadow-glass);
   }
   
-  .glass-card::before {
+  .neoglass-card::before {
     content: '';
-    @apply absolute inset-0 opacity-20;
-    background: var(--gradient-glass);
-    border-radius: inherit;
-  }
-  
-  /* Glass Navigation */
-  .glass-nav {
-    @apply relative overflow-hidden;
-    background: linear-gradient(135deg, hsl(var(--glass-background) / 0.3), hsl(var(--glass-background) / 0.1));
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--glass-border) / 0.2);
-    box-shadow: 0 8px 32px hsl(0 0% 0% / 0.2);
-  }
-  
-  /* Glass Button */
-  .glass-button {
-    @apply relative overflow-hidden;
-    background: linear-gradient(135deg, hsl(var(--glass-background) / 0.4), hsl(var(--glass-background) / 0.2));
-    backdrop-filter: blur(16px);
-    border: 1px solid hsl(var(--primary) / 0.3);
-  }
-  
-  .glass-button::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
     background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--primary) / 0.05));
     border-radius: inherit;
   }
   
-  .glass-button:hover::before {
+  .neoglass-card:hover::before {
     @apply opacity-100;
   }
   
-  /* Glass Variants */
-  .glass-card-purple {
-    @apply glass-card;
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--primary) / 0.05));
-    border-color: hsl(var(--primary) / 0.2);
-    box-shadow: var(--shadow-glass), var(--shadow-purple-glow);
+  /* NeoGlass Navigation */
+  .neoglass-nav {
+    @apply relative overflow-hidden rounded-[20px] bg-white/90 dark:bg-slate-900/90;
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-glass);
   }
   
-  /* Typography Styles */
-  .text-display {
-    font-family: var(--font-display);
-    @apply font-bold tracking-tight;
+  /* Purple Button */
+  .purple-button {
+    @apply relative overflow-hidden rounded-full bg-primary hover:bg-primary/90 text-primary-foreground;
+    box-shadow: 0 4px 20px hsl(var(--primary) / 0.3);
+    transition: all 0.3s ease;
   }
   
-  .text-glow {
-    text-shadow: 0 0 20px hsl(var(--primary-glow) / 0.5);
+  .purple-button:hover {
+    box-shadow: 0 6px 30px hsl(var(--primary) / 0.5);
+    transform: translateY(-2px);
   }
   
-  /* Interactive Elements */
-  .hover-lift {
-    transition: var(--transition-smooth);
-    @apply hover:scale-105 hover:-translate-y-1;
+  /* Neon Text Glow */
+  .text-neon-glow {
+    text-shadow: 0 0 20px rgba(0, 198, 255, 0.6), 0 0 40px rgba(0, 198, 255, 0.3);
   }
   
-  .hover-glow {
-    transition: var(--transition-smooth);
-    @apply hover:shadow-[0_0_30px_hsl(var(--primary)_/_0.4)];
+  /* Floating Animation */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
   }
   
-  /* Graphite Texture */
-  .graphite-texture {
-    background-image: 
-      radial-gradient(circle at 1px 1px, hsl(0 0% 15% / 0.3) 1px, transparent 0);
-    background-size: 20px 20px;
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
   }
   
-  /* Animated Gradient Border */
-  .gradient-border {
-    @apply relative overflow-hidden;
+  /* Clean Background - Neon Style */
+  .clean-bg {
+    @apply bg-white dark:bg-slate-950;
+  }
+
+  .section-bg {
+    @apply bg-slate-50 dark:bg-slate-900;
+  }
+
+  /* Subtle gradient for hero */
+  .hero-gradient {
+    background: linear-gradient(180deg, 
+      hsl(0 0% 100%) 0%,
+      hsl(0 0% 99%) 50%,
+      hsl(0 0% 98%) 100%
+    );
+  }
+
+  .dark .hero-gradient {
+    background: linear-gradient(180deg, 
+      hsl(0 0% 5%) 0%,
+      hsl(0 0% 4%) 50%,
+      hsl(0 0% 3%) 100%
+    );
   }
   
-  .gradient-border::before {
+  /* Holographic Border */
+  .holographic-border {
+    @apply relative;
+  }
+  
+  .holographic-border::before {
     content: '';
-    @apply absolute inset-0;
-    padding: 1px;
-    background: var(--gradient-primary);
-    border-radius: inherit;
+    @apply absolute inset-0 rounded-[20px] p-[1px];
+    background: linear-gradient(135deg, 
+      rgba(0, 198, 255, 0.5), 
+      rgba(123, 97, 255, 0.5), 
+      rgba(25, 230, 255, 0.5)
+    );
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
     -webkit-mask-composite: xor;
+  }
+  
+  /* 3D Tilt Effect */
+  .tilt-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+  
+  .tilt-3d:hover {
+    transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+  }
+  
+  /* Frosted Glass Pill */
+  .frosted-pill {
+    @apply rounded-full px-4 py-2 bg-white/60 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700;
+    backdrop-filter: blur(10px);
   }
   
   /* Line clamp utility */
@@ -182,6 +222,40 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+/* Neon-inspired utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 md:px-8 lg:px-12;
+  }
+
+  /* Gradient animation for project cards */
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
   }
 }

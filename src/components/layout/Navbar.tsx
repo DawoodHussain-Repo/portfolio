@@ -1,21 +1,46 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Moon, Sun, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
   { name: "Projects", href: "#projects" },
-  { name: "Technologies", href: "#technologies" },
+  { name: "Tech Stack", href: "#technologies" },
   { name: "Contact", href: "#contact" }
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+  const [isDark, setIsDark] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
+      
+      const sections = navItems.map(item => item.href.substring(1));
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
     
     window.addEventListener("scroll", handleScroll);
@@ -30,78 +55,126 @@ const Navbar = () => {
     }
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    if (!isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   };
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'py-2' : 'py-4'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
-          <div className="bg-white/90 backdrop-blur-md border border-slate-200/50 rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center justify-between">
-              {/* Logo */}
-              <div className="text-xl md:text-2xl font-bold text-slate-900">
-                <span className="text-purple-600">D</span>H
-              </div>
-              
-              {/* Desktop Navigation Links */}
-              <div className="hidden md:flex items-center space-x-8">
-                {navItems.map((item) => (
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800' 
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="container-custom">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <a 
+              href="#home" 
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('#home');
+              }}
+              className="text-xl font-bold text-slate-900 dark:text-white"
+            >
+              DH
+            </a>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.href.substring(1);
+                return (
                   <button
                     key={item.name}
                     onClick={() => handleNavClick(item.href)}
-                    className="text-slate-700 hover:text-purple-600 transition-all duration-300 font-medium relative group"
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      isActive 
+                        ? 'text-primary' 
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    }`}
                   >
                     {item.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-600 transition-all duration-300 group-hover:w-full" />
                   </button>
-                ))}
-              </div>
-              
+                );
+              })}
+            </div>
+
+            {/* Right Side Actions */}
+            <div className="flex items-center gap-2">
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+
               {/* Mobile Menu Button */}
               <button
-                onClick={toggleMobileMenu}
-                className="md:hidden p-2 rounded-xl bg-slate-50 hover:bg-purple-50 border border-slate-200 hover:border-purple-200 text-slate-600 hover:text-purple-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm md:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-          
-          {/* Mobile Menu Content */}
-          <div className="fixed top-20 left-4 right-4 z-50 md:hidden">
-            <div className="bg-white/95 backdrop-blur-md border border-slate-200/50 rounded-2xl shadow-2xl overflow-hidden">
-              <div className="p-2">
-                {navItems.map((item, index) => (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavClick(item.href)}
-                    className={`block w-full text-left px-4 py-3 text-slate-700 hover:text-purple-600 hover:bg-purple-50/80 rounded-xl transition-all duration-300 font-medium ${
-                      index !== navItems.length - 1 ? 'mb-1' : ''
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                ))}
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed top-16 right-0 bottom-0 w-64 bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 z-40 md:hidden p-6"
+            >
+              <div className="flex flex-col gap-2">
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.href.substring(1);
+                  return (
+                    <button
+                      key={item.name}
+                      onClick={() => handleNavClick(item.href)}
+                      className={`px-4 py-3 rounded-lg text-left font-medium transition-colors ${
+                        isActive 
+                          ? 'bg-primary/10 text-primary' 
+                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  );
+                })}
               </div>
-            </div>
-          </div>
-        </>
-      )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };
