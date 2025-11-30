@@ -48,15 +48,15 @@ const Footer = () => {
       {/* Main Contact Section */}
       <div className="section-padding">
         <div className="container-custom">
-          <div ref={headingRef} className="text-center max-w-4xl mx-auto">
-            <span className="text-cyan-400 font-medium tracking-widest uppercase text-sm">
+          <div ref={headingRef} className="text-center max-w-4xl mx-auto px-2">
+            <span className="text-cyan-400 font-medium tracking-widest uppercase text-xs md:text-sm">
               Contact
             </span>
-            <h2 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold text-white mt-4 mb-8">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white mt-3 md:mt-4 mb-6 md:mb-8">
               Let's Work
               <span className="gradient-text block">Together</span>
             </h2>
-            <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+            <p className="text-white/60 text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-8 md:mb-12">
               Have a project in mind? Let's discuss how we can bring your ideas
               to life with innovative solutions and exceptional execution.
             </p>
@@ -64,11 +64,11 @@ const Footer = () => {
             {/* CTA Button */}
             <a
               href="mailto:dawood90999@gmail.com?subject=Frontend%20Developer%20Inquiry"
-              className="hoverable group inline-flex items-center gap-4 cyan-button text-lg"
+              className="hoverable group inline-flex items-center gap-3 md:gap-4 cyan-button text-base md:text-lg"
             >
-              <Mail className="w-5 h-5" />
+              <Mail className="w-4 h-4 md:w-5 md:h-5" />
               Get In Touch
-              <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </div>
         </div>

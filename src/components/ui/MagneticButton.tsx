@@ -103,8 +103,8 @@ const MagneticButton = ({
   }, []);
 
   const baseStyles = `
-    relative px-8 py-4 rounded-full text-sm font-medium cursor-pointer overflow-hidden
-    tracking-wide inline-flex items-center gap-3 transition-colors duration-300
+    relative px-6 py-3 md:px-8 md:py-4 rounded-full text-sm font-medium cursor-pointer overflow-hidden
+    tracking-wide inline-flex items-center gap-2 md:gap-3 transition-colors duration-300 whitespace-nowrap
   `;
 
   const variantStyles =

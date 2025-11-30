@@ -25,6 +25,20 @@
     --cursor-size: 20px;
   }
 
+  /* Light mode variables */
+  .light {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 5%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 0 0% 92%;
+    --accent-foreground: 0 0% 10%;
+    --border: 0 0% 85%;
+    --input: 0 0% 90%;
+  }
+
   * {
     cursor: none !important;
     border-color: hsl(var(--border));
@@ -38,6 +52,13 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .light body,
+  html.light body {
+    background-color: #fafafa;
+    color: #1a1a1a;
   }
 
   h1,
@@ -53,6 +74,11 @@
   ::selection {
     background-color: white;
     color: black;
+  }
+
+  .light ::selection {
+    background-color: #050505;
+    color: white;
   }
 }
 
@@ -210,4 +236,184 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
+}
+
+/* Light Mode Overrides */
+html.light {
+  background-color: #fafafa;
+}
+
+html.light body {
+  background-color: #fafafa;
+  color: #1a1a1a;
+}
+
+/* Light mode section backgrounds */
+html.light section,
+html.light footer {
+  background: linear-gradient(to bottom, #fafafa, #f0f0f0, #fafafa) !important;
+}
+
+/* Light mode text colors */
+html.light .text-white,
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6,
+html.light p,
+html.light span,
+html.light a {
+  color: #000000 !important;
+}
+
+html.light .text-white\/60,
+html.light .text-white\/70 {
+  color: rgba(0, 0, 0, 0.65) !important;
+}
+
+html.light .text-white\/40,
+html.light .text-white\/50 {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+html.light .text-white\/80 {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+html.light .text-white\/20 {
+  color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Keep cyan accent colors */
+html.light .text-cyan-400,
+html.light .text-cyan-500 {
+  color: #0891b2 !important;
+}
+
+/* Light mode borders */
+html.light .border-white\/10,
+html.light .border-white\/20 {
+  border-color: rgba(26, 26, 26, 0.1) !important;
+}
+
+/* Light mode glass effect */
+html.light .glass-effect {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(26, 26, 26, 0.1) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Light mode gradients */
+html.light .gradient-text {
+  background: linear-gradient(to right, #000000, #555555) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+/* Light mode marquee text */
+html.light .marquee-wrapper {
+  color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Light mode navbar */
+html.light header {
+  background: rgba(250, 250, 250, 0.8) !important;
+  backdrop-filter: blur(10px);
+}
+
+/* Light mode buttons */
+html.light .hero-button {
+  background: rgba(26, 26, 26, 0.05) !important;
+  border-color: rgba(26, 26, 26, 0.2) !important;
+  color: #1a1a1a !important;
+}
+
+html.light .hero-button:hover {
+  background: #1a1a1a !important;
+  color: white !important;
+}
+
+html.light .cyan-button {
+  background: #06b6d4 !important;
+  color: white !important;
+}
+
+/* Light mode custom cursor */
+html.light .cursor-dot {
+  background-color: #1a1a1a !important;
+}
+
+html.light .cursor-outline {
+  border-color: rgba(26, 26, 26, 0.5) !important;
+}
+
+html.light body.cursor-hover .cursor-outline {
+  background-color: rgba(26, 26, 26, 0.1) !important;
+}
+
+/* Light mode scrollbar */
+html.light ::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* Light mode blob animations */
+html.light .bg-cyan-500\/10 {
+  background-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+html.light .bg-blue-500\/10 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+html.light .bg-teal-500\/10 {
+  background-color: rgba(20, 184, 166, 0.15) !important;
+}
+
+/* Light mode mix-blend-difference fix */
+html.light .mix-blend-difference {
+  mix-blend-mode: normal !important;
+  color: #000000 !important;
+}
+
+/* Light mode project card text */
+html.light .project-card h3,
+html.light .project-card p,
+html.light .project-card span {
+  color: #000000 !important;
+}
+
+/* Light mode tech items */
+html.light .tech-item p {
+  color: #000000 !important;
+}
+
+/* Light mode skill cards */
+html.light .skill-card h3 {
+  color: #000000 !important;
+}
+
+html.light .skill-card p {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Light mode footer social icons */
+html.light footer a {
+  color: #000000 !important;
+}
+
+/* Light mode button text exceptions */
+html.light .cyan-button,
+html.light .hero-button:hover {
+  color: #ffffff !important;
 }

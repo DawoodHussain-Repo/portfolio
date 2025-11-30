@@ -158,26 +158,26 @@ const TechnologiesSection = () => {
     >
       <div className="container-custom">
         {/* Section Header */}
-        <div ref={headingRef} className="text-center mb-16">
-          <span className="text-cyan-400 font-medium tracking-widest uppercase text-sm">
+        <div ref={headingRef} className="text-center mb-10 md:mb-16">
+          <span className="text-cyan-400 font-medium tracking-widest uppercase text-xs md:text-sm">
             Skills
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-3 md:mt-4">
             Technologies I Use
           </h2>
-          <p className="text-white/60 mt-4 max-w-2xl mx-auto">
+          <p className="text-white/60 mt-3 md:mt-4 max-w-2xl mx-auto text-sm md:text-base px-2">
             A comprehensive toolkit of modern technologies that I use to build
             exceptional digital experiences
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12 px-2">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`hoverable px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`hoverable px-4 py-2 md:px-6 md:py-3 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
                 activeCategory === cat.id
                   ? "bg-cyan-500 text-white"
                   : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10"
@@ -191,20 +191,22 @@ const TechnologiesSection = () => {
         {/* Technologies Grid */}
         <div
           ref={techGridRef}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 md:gap-4"
         >
           {filteredTech.map((tech) => {
             const IconComponent = tech.icon;
             return (
               <div
                 key={tech.name}
-                className="tech-item hoverable group glass-effect rounded-xl p-6 text-center hover:bg-white/10 transition-all duration-300 hover:scale-105"
+                className="tech-item hoverable group glass-effect rounded-xl p-4 md:p-6 text-center hover:bg-white/10 transition-all duration-300 hover:scale-105"
               >
                 <IconComponent
-                  className="w-10 h-10 mx-auto mb-3 group-hover:scale-110 transition-transform"
+                  className="w-8 h-8 md:w-10 md:h-10 mx-auto mb-2 md:mb-3 group-hover:scale-110 transition-transform"
                   style={{ color: tech.color }}
                 />
-                <p className="text-white font-medium text-sm">{tech.name}</p>
+                <p className="text-white font-medium text-xs md:text-sm">
+                  {tech.name}
+                </p>
               </div>
             );
           })}

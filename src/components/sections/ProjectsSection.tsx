@@ -119,14 +119,14 @@ const ProjectsSection = () => {
     >
       <div className="container-custom">
         {/* Section Header */}
-        <div ref={headingRef} className="text-center mb-20">
-          <span className="text-cyan-400 font-medium tracking-widest uppercase text-sm">
+        <div ref={headingRef} className="text-center mb-12 md:mb-20">
+          <span className="text-cyan-400 font-medium tracking-widest uppercase text-xs md:text-sm">
             Portfolio
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-3 md:mt-4">
             Featured Projects
           </h2>
-          <p className="text-white/60 mt-4 max-w-2xl mx-auto">
+          <p className="text-white/60 mt-3 md:mt-4 max-w-2xl mx-auto text-sm md:text-base px-2">
             A selection of my recent work, showcasing my expertise in building
             modern web applications
           </p>
@@ -140,13 +140,13 @@ const ProjectsSection = () => {
         ) : (
           <div
             ref={projectsRef}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
           >
             {repos.map((repo, index) => (
               <div
                 key={repo.id}
-                className={`project-item project-card group relative overflow-hidden rounded-2xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 ${
-                  index === 0 ? "md:col-span-2 lg:col-span-2 lg:row-span-2" : ""
+                className={`project-item project-card group relative overflow-hidden rounded-xl md:rounded-2xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 ${
+                  index === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2" : ""
                 }`}
               >
                 {/* Project Image */}

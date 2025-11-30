@@ -118,7 +118,7 @@ const HeroSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden px-4 pt-24 md:pt-28 pb-32 md:pb-24"
       id="home"
     >
       {/* Gradient Background Elements */}
@@ -131,22 +131,22 @@ const HeroSection = () => {
       {/* Main Content */}
       <div className="container-custom relative z-10 text-center">
         {/* Subtitle */}
-        <div ref={subtitleRef} className="mb-8">
-          <span className="inline-block px-6 py-2 border border-white/20 rounded-full text-white/60 text-sm tracking-widest uppercase">
+        <div ref={subtitleRef} className="mb-6 md:mb-8">
+          <span className="inline-block px-4 md:px-6 py-2 border border-white/20 rounded-full text-white/60 text-xs md:text-sm tracking-widest uppercase">
             Full Stack Developer
           </span>
         </div>
 
         {/* Main Title */}
         <div ref={titleRef} className="overflow-hidden">
-          <h1 className="font-display font-bold text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-tight leading-none">
+          <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-white tracking-tight leading-none">
             <div className="block">{splitText("DAWOOD")}</div>
             <div className="block gradient-text">{splitText("HUSSAIN")}</div>
           </h1>
         </div>
 
         {/* Shifting Text */}
-        <div className="mt-4 mb-16 h-12 md:h-14 overflow-hidden">
+        <div className="mt-3 md:mt-4 mb-10 md:mb-16 h-10 md:h-14 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.span
               key={wordIndex}
@@ -154,7 +154,7 @@ const HeroSection = () => {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -50, opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-3xl md:text-4xl lg:text-5xl text-cyan-400 font-display font-bold uppercase tracking-[0.2em] block"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-cyan-400 font-display font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] block"
             >
               {shiftingWords[wordIndex]}
             </motion.span>
@@ -162,7 +162,7 @@ const HeroSection = () => {
         </div>
 
         {/* Description */}
-        <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+        <p className="text-white/60 text-base md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed px-2">
           Crafting exceptional digital experiences with clean code and creative
           vision. Specialized in building modern web applications.
         </p>
@@ -170,7 +170,7 @@ const HeroSection = () => {
         {/* CTA Buttons */}
         <div
           ref={buttonsRef}
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
+          className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6"
         >
           <MagneticButton onClick={scrollToProjects} variant="outline">
             View My Work
@@ -183,16 +183,16 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+      {/* Scroll Indicator - Hidden on mobile */}
+      <div className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2">
         <div className="flex flex-col items-center gap-2 text-white/40">
           <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-16 bg-gradient-to-b from-white/40 to-transparent" />
+          <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent" />
         </div>
       </div>
 
-      {/* Grid Lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
+      {/* Grid Lines - Hidden on mobile */}
+      <div className="hidden md:block absolute inset-0 pointer-events-none opacity-20">
         <div className="absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
         <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
         <div className="absolute left-3/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />

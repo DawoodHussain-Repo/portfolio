@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "../ui/ThemeToggle";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,22 +74,28 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* CTA Button */}
-          <a
-            href="mailto:dawood90999@gmail.com?subject=Frontend%20Developer%20Inquiry"
-            className="hidden md:block hoverable hero-button text-sm"
-          >
-            Let's Talk
-          </a>
+          {/* CTA Button & Theme Toggle */}
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
+            <a
+              href="mailto:dawood90999@gmail.com?subject=Frontend%20Developer%20Inquiry"
+              className="hoverable hero-button text-sm"
+            >
+              Let's Talk
+            </a>
+          </div>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden mix-blend-difference text-white p-2"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex md:hidden items-center gap-3">
+            <ThemeToggle />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="mix-blend-difference text-white p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </nav>
       </motion.header>
 

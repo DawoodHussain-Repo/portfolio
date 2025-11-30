@@ -123,7 +123,7 @@ const AboutSection = () => {
       className="section-padding bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505]"
     >
       <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 md:gap-16 lg:gap-24 items-center">
           {/* Image Column */}
           <div
             ref={imageRef}
@@ -138,25 +138,25 @@ const AboutSection = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
             {/* Floating Badge */}
-            <div className="absolute bottom-8 left-8 right-8 glass-effect rounded-xl p-6">
-              <div className="flex items-center justify-between">
+            <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-8 glass-effect rounded-xl p-4 md:p-6">
+              <div className="flex items-center justify-between text-center">
                 <div>
-                  <p className="text-white/60 text-sm">Experience</p>
-                  <p className="text-white font-display text-2xl font-bold">
+                  <p className="text-white/60 text-xs md:text-sm">Experience</p>
+                  <p className="text-white font-display text-lg md:text-2xl font-bold">
                     3+ Years
                   </p>
                 </div>
-                <div className="w-px h-12 bg-white/20" />
+                <div className="w-px h-8 md:h-12 bg-white/20" />
                 <div>
-                  <p className="text-white/60 text-sm">Projects</p>
-                  <p className="text-white font-display text-2xl font-bold">
+                  <p className="text-white/60 text-xs md:text-sm">Projects</p>
+                  <p className="text-white font-display text-lg md:text-2xl font-bold">
                     50+
                   </p>
                 </div>
-                <div className="w-px h-12 bg-white/20" />
+                <div className="w-px h-8 md:h-12 bg-white/20" />
                 <div>
-                  <p className="text-white/60 text-sm">Clients</p>
-                  <p className="text-white font-display text-2xl font-bold">
+                  <p className="text-white/60 text-xs md:text-sm">Clients</p>
+                  <p className="text-white font-display text-lg md:text-2xl font-bold">
                     30+
                   </p>
                 </div>
@@ -165,25 +165,25 @@ const AboutSection = () => {
           </div>
 
           {/* Content Column */}
-          <div ref={contentRef} className="space-y-8">
+          <div ref={contentRef} className="space-y-6 md:space-y-8">
             <div>
-              <span className="text-cyan-400 font-medium tracking-widest uppercase text-sm">
+              <span className="text-cyan-400 font-medium tracking-widest uppercase text-xs md:text-sm">
                 About Me
               </span>
-              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4 leading-tight">
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-3 md:mt-4 leading-tight">
                 Turning Ideas Into
                 <span className="gradient-text block">Digital Reality</span>
               </h2>
             </div>
 
-            <p className="text-white/70 text-lg leading-relaxed">
+            <p className="text-white/70 text-base md:text-lg leading-relaxed">
               I'm a passionate full-stack developer with a love for creating
               beautiful, functional web applications. With expertise in modern
               technologies and a keen eye for design, I bridge the gap between
               aesthetics and functionality.
             </p>
 
-            <p className="text-white/60 leading-relaxed">
+            <p className="text-white/60 text-sm md:text-base leading-relaxed">
               My journey in tech started with curiosity and evolved into a
               career focused on delivering exceptional digital experiences. I
               believe in clean code, user-centric design, and continuous
@@ -191,17 +191,19 @@ const AboutSection = () => {
             </p>
 
             {/* Skills Grid */}
-            <div className="grid grid-cols-2 gap-4 pt-4">
+            <div className="grid grid-cols-2 gap-3 md:gap-4 pt-2 md:pt-4">
               {skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="skill-card glass-effect rounded-xl p-5 hover:bg-white/10 transition-all duration-300 group"
+                  className="skill-card glass-effect rounded-xl p-4 md:p-5 hover:bg-white/10 transition-all duration-300 group"
                 >
-                  <skill.icon className="w-8 h-8 text-cyan-400 mb-3 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-display font-semibold text-white mb-1">
+                  <skill.icon className="w-6 h-6 md:w-8 md:h-8 text-cyan-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform" />
+                  <h3 className="font-display font-semibold text-white text-sm md:text-base mb-1">
                     {skill.title}
                   </h3>
-                  <p className="text-white/50 text-sm">{skill.desc}</p>
+                  <p className="text-white/50 text-xs md:text-sm">
+                    {skill.desc}
+                  </p>
                 </div>
               ))}
             </div>
