@@ -40,8 +40,26 @@
   }
 
   * {
-    cursor: none !important;
     border-color: hsl(var(--border));
+  }
+
+  /* Hide custom cursor on mobile/touch devices */
+  @media (pointer: coarse), (max-width: 768px) {
+    * {
+      cursor: auto !important;
+    }
+
+    .cursor-dot,
+    .cursor-outline {
+      display: none !important;
+    }
+  }
+
+  /* Custom cursor only on desktop */
+  @media (pointer: fine) and (min-width: 769px) {
+    * {
+      cursor: none !important;
+    }
   }
 
   body {
@@ -239,19 +257,30 @@
 }
 
 /* Light Mode Overrides */
-html.light {
-  background-color: #fafafa;
-}
-
-html.light body {
-  background-color: #fafafa;
-  color: #1a1a1a;
+html.light,
+html.light body,
+html.light #root,
+html.light main,
+html.light .App {
+  background-color: #fafafa !important;
+  background: #fafafa !important;
 }
 
 /* Light mode section backgrounds */
 html.light section,
 html.light footer {
-  background: linear-gradient(to bottom, #fafafa, #f0f0f0, #fafafa) !important;
+  background: #fafafa !important;
+}
+
+html.light .bg-\[\#050505\],
+html.light .bg-black,
+html.light .from-\[\#050505\],
+html.light .via-\[\#0a0a0a\],
+html.light .to-\[\#050505\],
+html.light .from-black,
+html.light .to-black {
+  background: #fafafa !important;
+  background-color: #fafafa !important;
 }
 
 /* Light mode text colors */
@@ -435,4 +464,21 @@ html.light footer a {
 html.light .cyan-button,
 html.light .hero-button:hover {
   color: #ffffff !important;
+}
+
+/* Light mode mobile menu */
+html.light .mobile-menu-bg {
+  background-color: #fafafa !important;
+  background: #fafafa !important;
+}
+
+html.light .mobile-menu-text {
+  color: #000000 !important;
+}
+
+/* Light mode hamburger menu icon */
+html.light .md\\:hidden button,
+html.light header .mix-blend-difference {
+  color: #000000 !important;
+  mix-blend-mode: normal !important;
 }

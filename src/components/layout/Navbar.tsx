@@ -6,6 +6,11 @@ import ThemeToggle from "../ui/ThemeToggle";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLight, setIsLight] = useState(
+    () =>
+      typeof document !== "undefined" &&
+      document.documentElement.classList.contains("light")
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +19,24 @@ const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Listen for theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsLight(document.documentElement.classList.contains("light"));
+    };
+
+    checkTheme();
+
+    // Watch for class changes on html element
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const navItems = [
@@ -89,7 +112,12 @@ const Navbar = () => {
           <div className="flex md:hidden items-center gap-3">
             <ThemeToggle />
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                setIsLight(
+                  document.documentElement.classList.contains("light")
+                );
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
               className="mix-blend-difference text-white p-2"
               aria-label="Toggle menu"
             >
@@ -106,7 +134,8 @@ const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black"
+            className="fixed inset-0 z-40"
+            style={{ backgroundColor: isLight ? "#fafafa" : "#000000" }}
           >
             <motion.div
               initial={{ y: 50, opacity: 0 }}
@@ -126,7 +155,8 @@ const Navbar = () => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 + index * 0.1 }}
-                  className="hoverable text-white text-4xl font-display font-bold uppercase tracking-wider"
+                  className="hoverable text-4xl font-display font-bold uppercase tracking-wider"
+                  style={{ color: isLight ? "#000000" : "#ffffff" }}
                 >
                   {item.label}
                 </motion.a>
