@@ -1,136 +1,123 @@
-import { Github, Linkedin, Mail, MapPin, Phone, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight, Mail, Github, Linkedin, Twitter } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "dawood90999@gmail.com",
-      href: "mailto:dawood90999@gmail.com",
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+92 305 4449099",
-      href: "tel:+923054449099",
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Lahore, Pakistan",
-      href: null,
-    },
-  ];
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
 
   const socialLinks = [
     {
-      name: "GitHub",
       icon: Github,
-      url: "https://github.com/DawoodHussain-Repo",
+      href: "https://github.com/DawoodHussain-Repo",
+      label: "GitHub",
     },
-    {
-      name: "LinkedIn",
-      icon: Linkedin,
-      url: "https://www.linkedin.com/in/dawood-hussain-6a800622a/",
-    },
+    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
   ];
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (headingRef.current) {
+        gsap.from(headingRef.current.children, {
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 85%",
+          },
+          y: 80,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <footer id="contact" className="section-padding section-bg border-t border-slate-200 dark:border-slate-800">
-      <div className="container-custom">
-        {/* Contact Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6 text-balance">
-            Let's work together
-          </h2>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8 text-balance">
-            I'm always excited to discuss new opportunities and collaborate on interesting projects
-          </p>
-          
-          <a
-            href="mailto:dawood90999@gmail.com"
-            className="inline-flex items-center gap-2 purple-button px-8 py-4 text-lg font-semibold group"
-          >
-            Get in Touch
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-        </motion.div>
+    <footer
+      ref={sectionRef}
+      id="contact"
+      className="relative bg-gradient-to-b from-[#050505] via-cyan-950/10 to-[#050505] border-t border-white/10"
+    >
+      {/* Main Contact Section */}
+      <div className="section-padding">
+        <div className="container-custom">
+          <div ref={headingRef} className="text-center max-w-4xl mx-auto">
+            <span className="text-cyan-400 font-medium tracking-widest uppercase text-sm">
+              Contact
+            </span>
+            <h2 className="font-display text-5xl md:text-6xl lg:text-8xl font-bold text-white mt-4 mb-8">
+              Let's Work
+              <span className="gradient-text block">Together</span>
+            </h2>
+            <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+              Have a project in mind? Let's discuss how we can bring your ideas
+              to life with innovative solutions and exceptional execution.
+            </p>
 
-        {/* Contact Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16 max-w-4xl mx-auto">
-          {contactInfo.map((contact, index) => {
-            const Icon = contact.icon;
-            return (
-              <motion.div
-                key={contact.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-center"
-              >
-                <Icon className="w-6 h-6 text-primary mx-auto mb-3" />
-                <div className="text-sm text-slate-500 dark:text-slate-500 mb-1">
-                  {contact.label}
-                </div>
-                {contact.href ? (
-                  <a
-                    href={contact.href}
-                    className="text-slate-900 dark:text-white font-medium hover:text-primary transition-colors"
-                  >
-                    {contact.value}
-                  </a>
-                ) : (
-                  <div className="text-slate-900 dark:text-white font-medium">
-                    {contact.value}
-                  </div>
-                )}
-              </motion.div>
-            );
-          })}
+            {/* CTA Button */}
+            <a
+              href="mailto:dawood90999@gmail.com?subject=Frontend%20Developer%20Inquiry"
+              className="hoverable group inline-flex items-center gap-4 cyan-button text-lg"
+            >
+              <Mail className="w-5 h-5" />
+              Get In Touch
+              <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
+          </div>
         </div>
+      </div>
 
-        {/* Footer Bottom */}
-        <div className="pt-8 border-t border-slate-200 dark:border-slate-800">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            {/* Copyright */}
-            <div className="text-sm text-slate-600 dark:text-slate-400">
-              © {currentYear} Dawood Hussain. All rights reserved.
-            </div>
+      {/* Bottom Bar */}
+      <div className="border-t border-white/10">
+        <div className="container-custom py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Logo */}
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="hoverable font-display font-bold text-2xl text-white"
+            >
+              DAWOOD<span className="text-cyan-400">.</span>
+            </a>
 
             {/* Social Links */}
             <div className="flex items-center gap-6">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-                    title={social.name}
-                  >
-                    <Icon size={20} />
-                  </a>
-                );
-              })}
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hoverable w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                  aria-label={social.label}
+                >
+                  <social.icon className="w-5 h-5" />
+                </a>
+              ))}
             </div>
 
-            {/* Built with */}
-            <div className="text-sm text-slate-600 dark:text-slate-400">
-              Built with React & TypeScript
-            </div>
+            {/* Copyright */}
+            <p className="text-white/40 text-sm">
+              © {new Date().getFullYear()} Dawood Hussain. All rights reserved.
+            </p>
           </div>
         </div>
+      </div>
+
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
     </footer>
   );

@@ -1,261 +1,213 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* iOS 26 NeoGlass Portfolio - Futuristic Minimalism */
+/* Dark Creative Portfolio - Alex Style */
 
 @layer base {
   :root {
-    /* Light Theme - iOS 26 NeoGlass */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
-    
-    /* NeoGlass System */
-    --glass-background: 0 0% 100%;
-    --glass-border: 0 0% 90%;
-    --glass-foreground: 0 0% 10%;
-    
-    /* Purple Accent System */
-    --primary: 271 81% 56%;
+    --background: 0 0% 2%;
+    --foreground: 0 0% 98%;
+    --primary: 187 100% 42%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 271 100% 70%;
-    
-    /* Secondary */
-    --secondary: 271 15% 20%;
-    --secondary-foreground: 0 0% 100%;
-    
-    /* Muted */
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    
-    --accent: 271 30% 25%;
-    --accent-foreground: 0 0% 100%;
-    
-    /* Status */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    
-    --success: 142 76% 36%;
-    --success-foreground: 0 0% 100%;
-    
-    /* Borders & Inputs */
-    --border: 0 0% 90%;
-    --input: 0 0% 96%;
-    --ring: 271 81% 56%;
-    
-    /* NeoGlass Variables */
-    --glass-blur: blur(20px);
-    
-    /* Gradients */
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 98%), hsl(271 100% 98%), hsl(0 0% 96%));
-    
-    /* Shadows */
-    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.1);
-    --shadow-purple-glow: 0 0 40px hsl(271 81% 56% / 0.3);
-    
-    /* Typography - Google Fonts */
-    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    
-    --radius: 1.25rem;
-  }
-
-  .dark {
-    /* Dark Theme */
-    --background: 0 0% 5%;
-    --foreground: 0 0% 95%;
-    
-    --glass-background: 0 0% 10%;
-    --glass-border: 0 0% 20%;
-    --glass-foreground: 0 0% 90%;
-    
-    --primary: 271 81% 56%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 271 100% 70%;
-    
-    --secondary: 271 15% 30%;
+    --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 90%;
-    
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 60%;
-    
-    --accent: 271 30% 35%;
+    --accent: 0 0% 15%;
     --accent-foreground: 0 0% 95%;
-    
-    --border: 0 0% 20%;
+    --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 271 81% 56%;
-    
-    --gradient-hero: linear-gradient(180deg, hsl(0 0% 5%), hsl(271 30% 8%), hsl(0 0% 8%));
-    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.5);
+    --ring: 187 100% 42%;
+    --radius: 0.75rem;
+    --cursor-size: 20px;
+  }
+
+  * {
+    cursor: none !important;
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui,
+      sans-serif;
+    background-color: #050505;
+    color: #ffffff;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-display {
+    font-family: "Syne", sans-serif;
+  }
+
+  ::selection {
+    background-color: white;
+    color: black;
   }
 }
 
 @layer components {
-  /* iOS 26 NeoGlass Components */
-  .neoglass-card {
-    @apply relative overflow-hidden rounded-[20px] bg-white/80 dark:bg-slate-900/80;
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-glass);
-  }
-  
-  .neoglass-card::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
-    background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--primary) / 0.05));
-    border-radius: inherit;
-  }
-  
-  .neoglass-card:hover::before {
-    @apply opacity-100;
-  }
-  
-  /* NeoGlass Navigation */
-  .neoglass-nav {
-    @apply relative overflow-hidden rounded-[20px] bg-white/90 dark:bg-slate-900/90;
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-glass);
-  }
-  
-  /* Purple Button */
-  .purple-button {
-    @apply relative overflow-hidden rounded-full bg-primary hover:bg-primary/90 text-primary-foreground;
-    box-shadow: 0 4px 20px hsl(var(--primary) / 0.3);
-    transition: all 0.3s ease;
-  }
-  
-  .purple-button:hover {
-    box-shadow: 0 6px 30px hsl(var(--primary) / 0.5);
-    transform: translateY(-2px);
-  }
-  
-  /* Neon Text Glow */
-  .text-neon-glow {
-    text-shadow: 0 0 20px rgba(0, 198, 255, 0.6), 0 0 40px rgba(0, 198, 255, 0.3);
-  }
-  
-  /* Floating Animation */
-  .float-animation {
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-  
-  /* Clean Background - Neon Style */
-  .clean-bg {
-    @apply bg-white dark:bg-slate-950;
+  /* Custom Cursor */
+  .cursor-dot {
+    @apply fixed top-0 left-0 pointer-events-none z-[9999];
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  .section-bg {
-    @apply bg-slate-50 dark:bg-slate-900;
+  .cursor-outline {
+    @apply fixed top-0 left-0 pointer-events-none z-[9998];
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
   }
 
-  /* Subtle gradient for hero */
-  .hero-gradient {
-    background: linear-gradient(180deg, 
-      hsl(0 0% 100%) 0%,
-      hsl(0 0% 99%) 50%,
-      hsl(0 0% 98%) 100%
-    );
+  body.cursor-hover .cursor-outline {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: transparent;
+    backdrop-filter: blur(2px);
   }
 
-  .dark .hero-gradient {
-    background: linear-gradient(180deg, 
-      hsl(0 0% 5%) 0%,
-      hsl(0 0% 4%) 50%,
-      hsl(0 0% 3%) 100%
-    );
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 md:px-12 lg:px-20;
   }
-  
-  /* Holographic Border */
-  .holographic-border {
-    @apply relative;
+
+  .section-padding {
+    @apply py-24 md:py-32;
   }
-  
-  .holographic-border::before {
-    content: '';
-    @apply absolute inset-0 rounded-[20px] p-[1px];
-    background: linear-gradient(135deg, 
-      rgba(0, 198, 255, 0.5), 
-      rgba(123, 97, 255, 0.5), 
-      rgba(25, 230, 255, 0.5)
-    );
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: xor;
+
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500;
   }
-  
-  /* 3D Tilt Effect */
-  .tilt-3d {
-    transform-style: preserve-3d;
-    transition: transform 0.3s ease;
+
+  .hoverable {
+    @apply transition-colors duration-300;
   }
-  
-  .tilt-3d:hover {
-    transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+
+  .hero-button {
+    @apply inline-block border border-white/20 bg-white/5 hover:bg-white hover:text-black 
+           transition-all duration-300 px-8 py-4 rounded-full backdrop-blur-sm font-medium;
   }
-  
-  /* Frosted Glass Pill */
-  .frosted-pill {
-    @apply rounded-full px-4 py-2 bg-white/60 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700;
-    backdrop-filter: blur(10px);
+
+  .project-card {
+    @apply cursor-pointer;
   }
-  
-  /* Line clamp utility */
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+
+  .project-card .project-img {
+    @apply w-full h-full object-cover opacity-60 mix-blend-overlay transition-transform duration-700 ease-out;
+  }
+
+  .project-card:hover .project-img {
+    @apply scale-105;
+  }
+
+  .marquee-wrapper {
+    @apply whitespace-nowrap flex gap-8 text-4xl font-bold text-white/20;
+    font-family: "Syne", sans-serif;
+  }
+
+  @media (min-width: 768px) {
+    .marquee-wrapper {
+      font-size: 3.75rem;
+    }
+  }
+
+  .reveal-text {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  .char {
+    @apply inline-block;
+  }
+
+  .cyan-button {
+    @apply bg-cyan-500 text-white rounded-full transition-all duration-300 px-8 py-4;
+  }
+
+  .cyan-button:hover {
+    @apply bg-cyan-400 scale-105;
+  }
+
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-body antialiased;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight;
-  }
-}
-
-/* Neon-inspired utilities */
 @layer utilities {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
-  
-  .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
-  }
-  
-  .container-custom {
-    @apply max-w-7xl mx-auto px-6 md:px-8 lg:px-12;
-  }
 
-  /* Gradient animation for project cards */
-  @keyframes gradient-shift {
-    0%, 100% {
-      background-position: 0% 50%;
+  @keyframes blob {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
     }
-    50% {
-      background-position: 100% 50%;
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
     }
   }
 
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }

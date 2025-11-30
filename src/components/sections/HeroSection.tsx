@@ -1,136 +1,202 @@
-import { Download, ArrowRight, Github, Linkedin } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { motion } from "framer-motion";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowDown, Download } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import MagneticButton from "../ui/MagneticButton";
+
+const shiftingWords = ["Create", "Collaborate", "Innovate"];
+
+gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLDivElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % shiftingWords.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleDownloadResume = () => {
     const link = document.createElement("a");
     link.href = "/Dawood-Hussain.pdf";
     link.download = "Dawood-Hussain-Resume.pdf";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
+  };
+
+  const scrollToProjects = () => {
+    document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (contentRef.current) {
-        const elements = contentRef.current.querySelectorAll('.animate-in');
+      // Animate title letters
+      if (titleRef.current) {
+        const title = titleRef.current;
+        const chars = title.querySelectorAll(".char");
+
         gsap.fromTo(
-          elements,
-          { opacity: 0, y: 30 },
-          { 
-            opacity: 1, 
-            y: 0, 
-            duration: 0.8, 
-            stagger: 0.15,
-            ease: "power3.out",
-            delay: 0.2
+          chars,
+          { y: 100, opacity: 0, rotationX: -90 },
+          {
+            y: 0,
+            opacity: 1,
+            rotationX: 0,
+            stagger: 0.05,
+            duration: 1.2,
+            ease: "power4.out",
+            delay: 0.3,
           }
         );
       }
-    }, containerRef);
+
+      // Animate subtitle
+      if (subtitleRef.current) {
+        gsap.fromTo(
+          subtitleRef.current,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            delay: 1,
+          }
+        );
+      }
+
+      // Animate buttons container
+      if (buttonsRef.current) {
+        gsap.fromTo(
+          buttonsRef.current,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+            delay: 1.5,
+          }
+        );
+      }
+
+      // Scroll-triggered skew animation for main text
+      if (sectionRef.current && titleRef.current) {
+        gsap.to(titleRef.current, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+          skewY: -5,
+          y: -100,
+          opacity: 0.3,
+        });
+      }
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
+  const splitText = (text: string) => {
+    return text.split("").map((char, index) => (
+      <span key={index} className="char inline-block">
+        {char === " " ? "\u00A0" : char}
+      </span>
+    ));
+  };
+
   return (
     <section
-      ref={containerRef}
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden"
       id="home"
-      className="min-h-screen flex items-center justify-center hero-gradient relative overflow-hidden"
     >
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/3 rounded-full blur-3xl" />
+      {/* Gradient Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-blob" />
+        <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
       </div>
 
-      <div className="container-custom relative z-10">
-        <div ref={contentRef} className="max-w-4xl mx-auto text-center space-y-8 py-20">
-          {/* Main Heading */}
-          <div className="animate-in space-y-4">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-slate-900 dark:text-white text-balance">
-              Hi, I'm{" "}
-              <span className="text-primary">Dawood Hussain</span>
-            </h1>
-          </div>
+      {/* Main Content */}
+      <div className="container-custom relative z-10 text-center">
+        {/* Subtitle */}
+        <div ref={subtitleRef} className="mb-8">
+          <span className="inline-block px-6 py-2 border border-white/20 rounded-full text-white/60 text-sm tracking-widest uppercase">
+            Full Stack Developer
+          </span>
+        </div>
 
-          {/* Subheading */}
-          <p className="animate-in text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed text-balance">
-            Full-stack developer specializing in React, TypeScript, and Node.js.
-            Building scalable applications that solve real-world problems.
-          </p>
+        {/* Main Title */}
+        <div ref={titleRef} className="overflow-hidden">
+          <h1 className="font-display font-bold text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-tight leading-none">
+            <div className="block">{splitText("DAWOOD")}</div>
+            <div className="block gradient-text">{splitText("HUSSAIN")}</div>
+          </h1>
+        </div>
 
-          {/* CTA Buttons */}
-          <div className="animate-in flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <button
-              onClick={handleDownloadResume}
-              className="purple-button px-8 py-4 text-lg font-semibold flex items-center gap-3 group"
+        {/* Shifting Text */}
+        <div className="mt-4 mb-16 h-12 md:h-14 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={wordIndex}
+              initial={{ y: 50, opacity: 0, scale: 0.8 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: -50, opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-3xl md:text-4xl lg:text-5xl text-cyan-400 font-display font-bold uppercase tracking-[0.2em] block"
             >
-              <Download size={20} />
-              Download Resume
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            
-            <button
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 text-lg font-semibold text-slate-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-2"
-            >
-              Get in Touch
-              <ArrowRight size={18} />
-            </button>
-          </div>
+              {shiftingWords[wordIndex]}
+            </motion.span>
+          </AnimatePresence>
+        </div>
 
-          {/* Social Proof / Quick Links */}
-          <div className="animate-in flex items-center justify-center gap-6 pt-8">
-            <a
-              href="https://github.com/DawoodHussain-Repo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-            >
-              <Github size={18} />
-              <span>GitHub</span>
-            </a>
-            <span className="text-slate-300 dark:text-slate-700">•</span>
-            <a
-              href="https://www.linkedin.com/in/dawood-hussain-6a800622a/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
-            >
-              <Linkedin size={18} />
-              <span>LinkedIn</span>
-            </a>
-          </div>
+        {/* Description */}
+        <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          Crafting exceptional digital experiences with clean code and creative
+          vision. Specialized in building modern web applications.
+        </p>
 
-          {/* Tech Stack Pills */}
-          <div className="animate-in flex flex-wrap gap-3 justify-center pt-8">
-            {["React", "TypeScript", "Node.js", "Next.js", "PostgreSQL", "AWS"].map((tech) => (
-              <span
-                key={tech}
-                className="px-4 py-2 text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary transition-colors"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+        {/* CTA Buttons */}
+        <div
+          ref={buttonsRef}
+          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
+        >
+          <MagneticButton onClick={scrollToProjects} variant="outline">
+            View My Work
+            <ArrowDown className="w-5 h-5" />
+          </MagneticButton>
+          <MagneticButton onClick={handleDownloadResume} variant="filled">
+            <Download className="w-5 h-5" />
+            Download Resume
+          </MagneticButton>
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-      >
-        <div className="w-6 h-10 border-2 border-slate-300 dark:border-slate-700 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-2 bg-slate-400 dark:bg-slate-600 rounded-full" />
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+        <div className="flex flex-col items-center gap-2 text-white/40">
+          <span className="text-xs uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-16 bg-gradient-to-b from-white/40 to-transparent" />
         </div>
-      </motion.div>
+      </div>
+
+      {/* Grid Lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+        <div className="absolute left-3/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+      </div>
     </section>
   );
 };

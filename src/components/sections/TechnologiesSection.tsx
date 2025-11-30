@@ -1,114 +1,214 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  SiReact,
+  SiTypescript,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiVuedotjs,
+  SiGreensock,
+  SiNodedotjs,
+  SiPython,
+  SiExpress,
+  SiFastapi,
+  SiGraphql,
+  SiMongodb,
+  SiPostgresql,
+  SiRedis,
+  SiFirebase,
+  SiDocker,
+  SiGit,
+  SiFigma,
+  SiLinux,
+} from "react-icons/si";
+import { FaAws } from "react-icons/fa";
+import { VscVscode } from "react-icons/vsc";
+import { Globe } from "lucide-react";
 
-const technologies = {
-  "Languages & Frameworks": [
-    { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-    { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-    { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-    { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-    { name: "Tailwind", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-  ],
-  "Databases & Backend": [
-    { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-    { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-    { name: "Express", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
-    { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
-    { name: "Prisma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg" },
-  ],
-  "Tools & Platforms": [
-    { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-    { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-    { name: "AWS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" },
-    { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-    { name: "Vite", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" },
-  ],
-};
+gsap.registerPlugin(ScrollTrigger);
 
 const TechnologiesSection = () => {
-  const [activeCategory, setActiveCategory] = useState("Languages & Frameworks");
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const techGridRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const categories = [
+    { id: "all", label: "All" },
+    { id: "frontend", label: "Frontend" },
+    { id: "backend", label: "Backend" },
+    { id: "database", label: "Database" },
+    { id: "tools", label: "Tools" },
+  ];
+
+  const technologies = [
+    { name: "React", category: "frontend", icon: SiReact, color: "#61DAFB" },
+    {
+      name: "TypeScript",
+      category: "frontend",
+      icon: SiTypescript,
+      color: "#3178C6",
+    },
+    {
+      name: "Next.js",
+      category: "frontend",
+      icon: SiNextdotjs,
+      color: "#ffffff",
+    },
+    {
+      name: "TailwindCSS",
+      category: "frontend",
+      icon: SiTailwindcss,
+      color: "#06B6D4",
+    },
+    {
+      name: "Vue.js",
+      category: "frontend",
+      icon: SiVuedotjs,
+      color: "#4FC08D",
+    },
+    { name: "GSAP", category: "frontend", icon: SiGreensock, color: "#88CE02" },
+    {
+      name: "Node.js",
+      category: "backend",
+      icon: SiNodedotjs,
+      color: "#339933",
+    },
+    { name: "Python", category: "backend", icon: SiPython, color: "#3776AB" },
+    { name: "Express", category: "backend", icon: SiExpress, color: "#ffffff" },
+    { name: "FastAPI", category: "backend", icon: SiFastapi, color: "#009688" },
+    { name: "GraphQL", category: "backend", icon: SiGraphql, color: "#E10098" },
+    { name: "REST APIs", category: "backend", icon: Globe, color: "#8B5CF6" },
+    {
+      name: "MongoDB",
+      category: "database",
+      icon: SiMongodb,
+      color: "#47A248",
+    },
+    {
+      name: "PostgreSQL",
+      category: "database",
+      icon: SiPostgresql,
+      color: "#4169E1",
+    },
+    { name: "Redis", category: "database", icon: SiRedis, color: "#DC382D" },
+    {
+      name: "Firebase",
+      category: "database",
+      icon: SiFirebase,
+      color: "#FFCA28",
+    },
+    { name: "Docker", category: "tools", icon: SiDocker, color: "#2496ED" },
+    { name: "Git", category: "tools", icon: SiGit, color: "#F05032" },
+    { name: "AWS", category: "tools", icon: FaAws, color: "#FF9900" },
+    { name: "Figma", category: "tools", icon: SiFigma, color: "#F24E1E" },
+    { name: "VS Code", category: "tools", icon: VscVscode, color: "#007ACC" },
+    { name: "Linux", category: "tools", icon: SiLinux, color: "#FCC624" },
+  ];
+
+  const filteredTech =
+    activeCategory === "all"
+      ? technologies
+      : technologies.filter((tech) => tech.category === activeCategory);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Heading animation
+      if (headingRef.current) {
+        gsap.from(headingRef.current.children, {
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top 85%",
+          },
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power3.out",
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    // Animate tech items when category changes
+    if (techGridRef.current) {
+      const items = techGridRef.current.querySelectorAll(".tech-item");
+      gsap.fromTo(
+        items,
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.05,
+          ease: "power3.out",
+        }
+      );
+    }
+  }, [activeCategory]);
 
   return (
-    <section id="technologies" className="section-padding clean-bg">
+    <section
+      ref={sectionRef}
+      className="section-padding bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505]"
+    >
       <div className="container-custom">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mx-auto text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-slate-900 dark:text-white mb-6 text-balance">
-            Tech Stack & Tools
+        {/* Section Header */}
+        <div ref={headingRef} className="text-center mb-16">
+          <span className="text-cyan-400 font-medium tracking-widest uppercase text-sm">
+            Skills
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-4">
+            Technologies I Use
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 text-balance">
-            Modern technologies I use to build scalable, performant applications
+          <p className="text-white/60 mt-4 max-w-2xl mx-auto">
+            A comprehensive toolkit of modern technologies that I use to build
+            exceptional digital experiences
           </p>
-        </motion.div>
+        </div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {Object.keys(technologies).map((category) => (
+        {/* Category Filter */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {categories.map((cat) => (
             <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`px-6 py-3 rounded-full font-medium transition-all text-sm ${
-                activeCategory === category
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`hoverable px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeCategory === cat.id
+                  ? "bg-cyan-500 text-white"
+                  : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10"
               }`}
             >
-              {category}
+              {cat.label}
             </button>
           ))}
         </div>
 
         {/* Technologies Grid */}
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-5xl mx-auto"
+        <div
+          ref={techGridRef}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
         >
-          {technologies[activeCategory as keyof typeof technologies].map((tech, index) => (
-            <motion.div
-              key={tech.name}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.05 }}
-              className="group flex flex-col items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary dark:hover:border-primary transition-all bg-white dark:bg-slate-900"
-            >
-              <div className="w-12 h-12 relative group-hover:scale-110 transition-transform">
-                <img
-                  src={tech.logo}
-                  alt={tech.name}
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    e.currentTarget.src = `https://via.placeholder.com/48/7B61FF/ffffff?text=${tech.name.charAt(0)}`;
-                  }}
+          {filteredTech.map((tech) => {
+            const IconComponent = tech.icon;
+            return (
+              <div
+                key={tech.name}
+                className="tech-item hoverable group glass-effect rounded-xl p-6 text-center hover:bg-white/10 transition-all duration-300 hover:scale-105"
+              >
+                <IconComponent
+                  className="w-10 h-10 mx-auto mb-3 group-hover:scale-110 transition-transform"
+                  style={{ color: tech.color }}
                 />
+                <p className="text-white font-medium text-sm">{tech.name}</p>
               </div>
-              <span className="text-xs font-medium text-slate-700 dark:text-slate-300 text-center">
-                {tech.name}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Integration Message */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Experienced in integrating these technologies to build full-stack applications
-            with excellent performance, scalability, and developer experience.
-          </p>
-        </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

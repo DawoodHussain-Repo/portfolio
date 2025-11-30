@@ -1,178 +1,141 @@
 import { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Tech Stack", href: "#technologies" },
-  { name: "Contact", href: "#contact" }
-];
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const [isDark, setIsDark] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      
-      const sections = navItems.map(item => item.href.substring(1));
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
+      setIsScrolled(window.scrollY > 50);
     };
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navItems = [
+    { label: "About", href: "#about" },
+    { label: "Projects", href: "#projects" },
+    { label: "Contact", href: "#contact" },
+  ];
+
   const handleNavClick = (href: string) => {
+    setMobileMenuOpen(false);
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (!isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
     }
   };
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800' 
-            : 'bg-transparent'
+      <motion.header
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? "py-4 backdrop-blur-md bg-black/50"
+            : "py-6 bg-transparent"
         }`}
       >
-        <div className="container-custom">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <a 
-              href="#home" 
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('#home');
-              }}
-              className="text-xl font-bold text-slate-900 dark:text-white"
-            >
-              DH
-            </a>
+        <nav className="container-custom flex items-center justify-between">
+          {/* Logo */}
+          <a
+            href="#"
+            className="hoverable mix-blend-difference text-white font-display font-bold text-xl tracking-tight"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            DAWOOD
+            <span className="text-cyan-400">.</span>
+          </a>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
-              {navItems.map((item) => {
-                const isActive = activeSection === item.href.substring(1);
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavClick(item.href)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      isActive 
-                        ? 'text-primary' 
-                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                );
-              })}
-            </div>
+          {/* Desktop Navigation */}
+          <ul className="hidden md:flex items-center gap-12">
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.href);
+                  }}
+                  className="hoverable mix-blend-difference text-white/80 hover:text-white text-sm font-medium tracking-wide uppercase transition-colors duration-300"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-            {/* Right Side Actions */}
-            <div className="flex items-center gap-2">
-              {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                aria-label="Toggle theme"
-              >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
+          {/* CTA Button */}
+          <a
+            href="mailto:dawood90999@gmail.com?subject=Frontend%20Developer%20Inquiry"
+            className="hidden md:block hoverable hero-button text-sm"
+          >
+            Let's Talk
+          </a>
 
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden mix-blend-difference text-white p-2"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </nav>
+      </motion.header>
 
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-black"
+          >
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
-            />
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-16 right-0 bottom-0 w-64 bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 z-40 md:hidden p-6"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ delay: 0.1 }}
+              className="flex flex-col items-center justify-center h-full gap-8"
             >
-              <div className="flex flex-col gap-2">
-                {navItems.map((item) => {
-                  const isActive = activeSection === item.href.substring(1);
-                  return (
-                    <button
-                      key={item.name}
-                      onClick={() => handleNavClick(item.href)}
-                      className={`px-4 py-3 rounded-lg text-left font-medium transition-colors ${
-                        isActive 
-                          ? 'bg-primary/10 text-primary' 
-                          : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-                      }`}
-                    >
-                      {item.name}
-                    </button>
-                  );
-                })}
-              </div>
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.href);
+                  }}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 + index * 0.1 }}
+                  className="hoverable text-white text-4xl font-display font-bold uppercase tracking-wider"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+              <motion.a
+                href="mailto:dawood90999@gmail.com?subject=Frontend%20Developer%20Inquiry"
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="cyan-button mt-8 text-lg"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Let's Talk
+              </motion.a>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
