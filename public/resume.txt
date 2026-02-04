@@ -1,0 +1,124 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                          DAWOOD HUSSAIN                                   ║
+║                     Full-Stack Developer & Creative Builder               ║
+║                                                                            ║
+║                    Email: dawood90999@gmail.com                           ║
+║                    GitHub: https://github.com                            ║
+║                    LinkedIn: https://linkedin.com                        ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+PROFESSIONAL SUMMARY
+═══════════════════════════════════════════════════════════════════════════
+
+Passionate Full-Stack Developer with 5+ years of experience building scalable 
+web applications. Specialized in React, Next.js, Node.js, and modern web 
+technologies. Known for creating responsive interfaces, clean code, and 
+innovative digital solutions.
+
+
+CORE COMPETENCIES
+═══════════════════════════════════════════════════════════════════════════
+
+Frontend Development        Backend Development         Database & Tools
+─────────────────         ─────────────────           ───────────────
+• React & Next.js         • Node.js                   • MongoDB
+• TypeScript              • Express.js                • PostgreSQL
+• Tailwind CSS            • REST APIs                 • Git & GitHub
+• HTML5 & CSS3            • Authentication           • Docker
+• Responsive Design       • Database Design          • Vercel & AWS
+
+
+TECHNICAL SKILLS
+═══════════════════════════════════════════════════════════════════════════
+
+Languages:      JavaScript, TypeScript, Python, HTML5, CSS3
+Frameworks:     React, Next.js, Express.js, Node.js
+Styling:        Tailwind CSS, CSS-in-JS, Responsive Design
+Databases:      MongoDB, PostgreSQL, Firebase
+Tools:          Git, GitHub, Docker, Vercel, AWS, VS Code
+Methodologies:  Agile, RESTful APIs, Microservices, CI/CD
+
+
+FEATURED PROJECTS
+═══════════════════════════════════════════════════════════════════════════
+
+PROJECT 01 - Interactive Portfolio
+Built with: Next.js, Tailwind CSS, TypeScript, Responsive Design
+Description: Personal portfolio website with interactive console, real-time 
+             commands, resume preview window, and modern retro-brutalist UI.
+             Features smooth animations and full responsiveness.
+
+PROJECT 02 - Full-Stack Web Application
+Built with: React, Node.js, MongoDB, Express.js
+Description: Complete web application with user authentication, real-time 
+             data synchronization, and modern user interface. Includes 
+             database design and API development.
+
+PROJECT 03 - E-Commerce Platform
+Built with: TypeScript, PostgreSQL, React, Payment Integration
+Description: Enterprise-grade e-commerce solution with product management,
+             payment processing, and advanced filtering. Scalable architecture
+             with optimized database queries.
+
+
+PROFESSIONAL EXPERIENCE
+═══════════════════════════════════════════════════════════════════════════
+
+Senior Developer | 2023 - Present
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Led development of multiple full-stack web applications
+• Mentored junior developers on best practices and code quality
+• Implemented responsive designs and optimized performance
+• Collaborated with UX/UI team on design implementation
+
+Full-Stack Developer | 2020 - 2023
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Developed and maintained React-based applications
+• Built scalable Node.js backends with RESTful APIs
+• Designed and optimized PostgreSQL databases
+• Implemented authentication and security features
+
+Junior Developer | 2019 - 2020
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Built responsive web pages with HTML5, CSS3, JavaScript
+• Collaborated on cross-functional development team
+• Participated in code reviews and testing processes
+
+
+EDUCATION
+═══════════════════════════════════════════════════════════════════════════
+
+Bachelor's in Computer Science
+University / Institution Name - Graduation Year
+
+
+CERTIFICATIONS & ACHIEVEMENTS
+═══════════════════════════════════════════════════════════════════════════
+
+✓ Full-Stack Web Development Certification
+✓ 50+ Projects Shipped & Deployed
+✓ 100% Client Satisfaction Rate
+✓ Open Source Contributor
+✓ Tech Community Speaker
+
+
+SOFT SKILLS
+═══════════════════════════════════════════════════════════════════════════
+
+• Problem Solving & Critical Thinking
+• Team Collaboration & Communication
+• Project Management
+• Technical Documentation
+• Mentoring & Leadership
+• Agile Development
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  Built with passion | Created with code                  ║
+║                   © 2025 Dawood Hussain - All Rights Reserved            ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
