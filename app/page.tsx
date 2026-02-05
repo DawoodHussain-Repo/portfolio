@@ -4,11 +4,43 @@ import { useEffect, useState } from "react"
 import { InteractiveConsole } from "@/components/InteractiveConsole"
 import { ResumeWindow } from "@/components/ResumeWindow"
 
+interface GitHubRepo {
+  id: number
+  name: string
+  description: string
+  html_url: string
+  topics: string[]
+  homepage: string | null
+  stargazers_count: number
+  language: string
+}
+
 export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [showResume, setShowResume] = useState(false)
+  const [githubProjects, setGithubProjects] = useState<GitHubRepo[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Fetch GitHub repositories
+    const fetchGitHubProjects = async () => {
+      try {
+        const response = await fetch('https://api.github.com/users/DawoodHussain-Repo/repos?sort=updated&per_page=100')
+        const data = await response.json()
+        // Filter out forks and sort by stars
+        const filteredRepos = data
+          .filter((repo: GitHubRepo) => !repo.fork)
+          .sort((a: GitHubRepo, b: GitHubRepo) => b.stargazers_count - a.stargazers_count)
+        setGithubProjects(filteredRepos)
+        setLoading(false)
+      } catch (error) {
+        console.error('Error fetching GitHub projects:', error)
+        setLoading(false)
+      }
+    }
+
+    fetchGitHubProjects()
+
     // Update the system clock
     function updateClock() {
       const now = new Date()
@@ -58,11 +90,14 @@ export default function Home() {
 
         <header>
         <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div className="logo">Dawood Hussain</div>
+          <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="/logo.svg" alt="DH Logo" style={{ width: '40px', height: '40px' }} />
+            <span>Dawood Hussain</span>
+          </div>
           <nav className="nav-links">
             <a href="#work">PROJECTS</a>
             <a href="#lab">CONSOLE</a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GITHUB</a>
+            <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer">GITHUB</a>
             <button 
               onClick={() => setShowResume(true)}
               className="nav-resume-btn"
@@ -70,6 +105,13 @@ export default function Home() {
             >
               RESUME
             </button>
+            <a 
+              href="/resume.txt" 
+              download="Dawood-Hussain-Portfolio.txt"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              DOWNLOAD
+            </a>
           </nav>
           <div className="system-status">SYS_UP: 24:12:05:08 | CPU: 12%</div>
         </div>
@@ -105,7 +147,55 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <img src="/hero-portrait.jpg" alt="Professional Portrait" className="hero-image" />
+            <div 
+              style={{ 
+                width: '100%', 
+                height: '400px', 
+                background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '2px solid var(--accent)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              <div style={{ 
+                fontSize: '120px', 
+                color: 'var(--accent)', 
+                fontWeight: 'bold',
+                fontFamily: 'monospace',
+                marginBottom: '20px'
+              }}>
+                404
+              </div>
+              <div style={{ 
+                fontSize: '18px', 
+                color: 'var(--text-primary)', 
+                textAlign: 'center',
+                fontFamily: 'monospace',
+                maxWidth: '80%'
+              }}>
+                <div style={{ marginBottom: '10px' }}>DEVELOPER_NOT_FOUND</div>
+                <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+                  Currently coding innovative solutions...
+                </div>
+                <div style={{ fontSize: '12px', color: 'var(--accent)', marginTop: '15px' }}>
+                  {'>'} Building the future, one commit at a time
+                </div>
+              </div>
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                right: '20px',
+                fontSize: '10px',
+                color: 'var(--text-secondary)',
+                fontFamily: 'monospace'
+              }}>
+                STATUS: ACTIVE | LOCATION: ISLAMABAD
+              </div>
+            </div>
           </div>
         </section>
 
@@ -132,104 +222,97 @@ export default function Home() {
         {/* Portfolio */}
         <section id="work">
           <h2 className="section-title">Latest Deployments</h2>
-          <div className="portfolio-grid">
-            {/* Project 1 */}
-            <div className="project-card">
-              <div className="window-header" style={{ background: "#333", color: "#fff" }}>
-                <span>PROJECT_01</span>
-                <div className="window-controls">
-                  <button className="window-btn" aria-label="Minimize">
-                    <span className="minimize-icon"></span>
-                  </button>
-                  <button className="window-btn" aria-label="Maximize">
-                    <span className="maximize-icon"></span>
-                  </button>
-                  <button className="window-btn window-close" aria-label="Close">
-                    <span className="close-icon"></span>
-                  </button>
-                </div>
-              </div>
-              <img
-                src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80"
-                alt="Project Portfolio"
-                className="project-img"
-              />
-              <div className="project-info">
-                <span className="project-tag">#NEXT.JS #TAILWIND #TYPESCRIPT</span>
-                <h3 className="project-title">Interactive Portfolio</h3>
-                <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
-                  Personal portfolio website with interactive console, responsive design, and modern UI. Built with Next.js and Tailwind CSS for optimal performance.
-                </p>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", color: "var(--accent)", textDecoration: "none", marginTop: "8px", display: "inline-block" }}>
-                  VIEW ON GITHUB →
-                </a>
-              </div>
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '40px', color: 'var(--accent)' }}>
+              Loading projects from GitHub...
             </div>
-            {/* Project 2 */}
-            <div className="project-card">
-              <div className="window-header" style={{ background: "#333", color: "#fff" }}>
-                <span>PROJECT_02</span>
-                <div className="window-controls">
-                  <button className="window-btn" aria-label="Minimize">
-                    <span className="minimize-icon"></span>
-                  </button>
-                  <button className="window-btn" aria-label="Maximize">
-                    <span className="maximize-icon"></span>
-                  </button>
-                  <button className="window-btn window-close" aria-label="Close">
-                    <span className="close-icon"></span>
-                  </button>
+          ) : (
+            <>
+              <div className="portfolio-grid">
+                {githubProjects.slice(0, 6).map((project, index) => {
+                  // Only show live demo for specific projects
+                  const hasLiveDemo = ['wisdom-saas', 'pitchify'].includes(project.name.toLowerCase())
+                  const liveDemoUrl = hasLiveDemo ? project.homepage : null
+                  
+                  return (
+                    <div className="project-card" key={project.id}>
+                      <div className="window-header" style={{ background: "#333", color: "#fff" }}>
+                        <span>PROJECT_{String(index + 1).padStart(2, '0')}</span>
+                        <div className="window-controls">
+                          <button className="window-btn" aria-label="Minimize">
+                            <span className="minimize-icon"></span>
+                          </button>
+                          <button className="window-btn" aria-label="Maximize">
+                            <span className="maximize-icon"></span>
+                          </button>
+                          <button className="window-btn window-close" aria-label="Close">
+                            <span className="close-icon"></span>
+                          </button>
+                        </div>
+                      </div>
+                      <img
+                        src={`https://opengraph.githubassets.com/1/${project.html_url.replace('https://github.com/', '')}`}
+                        alt={project.name}
+                        className="project-img"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80'
+                        }}
+                      />
+                      <div className="project-info">
+                        <span className="project-tag">
+                          {project.topics.length > 0 
+                            ? project.topics.slice(0, 3).map(t => `#${t.toUpperCase()}`).join(' ')
+                            : project.language ? `#${project.language.toUpperCase()}` : '#PROJECT'}
+                        </span>
+                        <h3 className="project-title">{project.name.replace(/-/g, ' ').toUpperCase()}</h3>
+                        <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
+                          {project.description || 'A project built with modern technologies and best practices.'}
+                        </p>
+                        <div style={{ display: 'flex', gap: '10px', marginTop: '10px', alignItems: 'center' }}>
+                          <a 
+                            href={project.html_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            style={{ fontSize: "0.75rem", color: "var(--accent)", textDecoration: "none", display: "inline-block" }}
+                          >
+                            VIEW ON GITHUB →
+                          </a>
+                          {liveDemoUrl && (
+                            <a 
+                              href={liveDemoUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              style={{ fontSize: "0.75rem", color: "#00ff41", textDecoration: "none", display: "inline-block" }}
+                            >
+                              LIVE DEMO →
+                            </a>
+                          )}
+                        </div>
+                        {project.stargazers_count > 0 && (
+                          <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: '8px' }}>
+                            ⭐ {project.stargazers_count} stars
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              {githubProjects.length > 6 && (
+                <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                  <a 
+                    href="https://github.com/DawoodHussain-Repo?tab=repositories" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn-retro"
+                    style={{ display: 'inline-block' }}
+                  >
+                    VIEW MORE ON GITHUB ({githubProjects.length - 6}+ MORE)
+                  </a>
                 </div>
-              </div>
-              <img
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80"
-                alt="Web Application"
-                className="project-img"
-              />
-              <div className="project-info">
-                <span className="project-tag">#REACT #NODE.JS #MONGODB</span>
-                <h3 className="project-title">Full-Stack Web Application</h3>
-                <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
-                  Complete web application with React frontend, Node.js backend, and MongoDB database. Features user authentication, real-time data sync, and modern UI.
-                </p>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", color: "var(--accent)", textDecoration: "none", marginTop: "8px", display: "inline-block" }}>
-                  VIEW ON GITHUB →
-                </a>
-              </div>
-            </div>
-            {/* Project 3 */}
-            <div className="project-card">
-              <div className="window-header" style={{ background: "#333", color: "#fff" }}>
-                <span>PROJECT_03</span>
-                <div className="window-controls">
-                  <button className="window-btn" aria-label="Minimize">
-                    <span className="minimize-icon"></span>
-                  </button>
-                  <button className="window-btn" aria-label="Maximize">
-                    <span className="maximize-icon"></span>
-                  </button>
-                  <button className="window-btn window-close" aria-label="Close">
-                    <span className="close-icon"></span>
-                  </button>
-                </div>
-              </div>
-              <img
-                src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=600&q=80"
-                alt="Responsive Web Platform"
-                className="project-img"
-              />
-              <div className="project-info">
-                <span className="project-tag">#TYPESCRIPT #POSTGRESQL #RESPONSIVE</span>
-                <h3 className="project-title">E-Commerce Platform</h3>
-                <p style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>
-                  Enterprise-grade e-commerce solution with TypeScript, PostgreSQL backend, payment integration, and advanced product management features.
-                </p>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.75rem", color: "var(--accent)", textDecoration: "none", marginTop: "8px", display: "inline-block" }}>
-                  VIEW ON GITHUB →
-                </a>
-              </div>
-            </div>
-          </div>
+              )}
+            </>
+          )}
         </section>
       </div>
 
@@ -256,6 +339,7 @@ export default function Home() {
         {/* Footer */}
         <footer>
           <div className="footer-logo">
+            <img src="/logo.svg" alt="DH Logo" style={{ width: '60px', height: '60px', marginBottom: '10px' }} />
             <p style={{ color: "var(--accent)", fontSize: "0.8rem", marginBottom: "10px" }}>END_OF_PAGE</p>
             <h2>
               DAWOOD HUSSAIN
@@ -265,13 +349,13 @@ export default function Home() {
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ marginBottom: "20px" }}>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none", marginLeft: "20px" }}>
-                TWITTER
+              <a href="https://x.com/DHussain16725" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none", marginLeft: "20px" }}>
+                X
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none", marginLeft: "20px" }}>
+              <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none", marginLeft: "20px" }}>
                 GITHUB
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none", marginLeft: "20px" }}>
+              <a href="https://linkedin.com/in/dawood-hussain" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none", marginLeft: "20px" }}>
                 LINKEDIN
               </a>
             </div>

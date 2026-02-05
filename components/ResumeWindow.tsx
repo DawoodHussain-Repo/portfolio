@@ -52,9 +52,10 @@ export function ResumeWindow({ isOpen, onClose }: ResumeWindowProps) {
       {!isMinimized && (
         <div className="resume-content">
           <iframe
-            src="/resume.pdf"
+            src="/resume.txt"
             className="resume-iframe"
-            title="Resume PDF"
+            title="Resume"
+            style={{ width: '100%', height: '100%', border: 'none', background: '#1a1a1a', color: '#00ff41', padding: '20px', fontFamily: 'monospace' }}
           />
         </div>
       )}
