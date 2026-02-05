@@ -5,72 +5,114 @@ import gsap from "gsap"
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [logs, setLogs] = useState<{status: string, message: string}[]>([])
+  const [progress, setProgress] = useState(0)
+  const [currentTask, setCurrentTask] = useState("INITIALIZING...")
 
   useEffect(() => {
-    const bootSequence = [
-      { message: "Mounting /dev/sda1...", delay: 100 },
-      { message: "Loading initial ramdisk...", delay: 300 },
-      { message: "Starting kernel... Linux 6.8.0-generic", delay: 600 },
-      { message: "Checking file systems...", delay: 800 },
-      { message: "Mounting local filesystems...", delay: 1100 },
-      { message: "Starting Network Manager...", delay: 1400 },
-      { message: "Reached target Network.", delay: 1600 },
-      { message: "Starting Portfolio UI Display Manager...", delay: 1900 },
-      { message: "Started User Manager for UID 1000...", delay: 2200 },
-      { message: "Welcome to Dawood OS.", delay: 2600 },
+    const tasks = [
+      "ESTABLISHING SECURE CONNECTION",
+      "LOADING ASSETS",
+      "CONFIGURING ENVIRONMENT",
+      "PREPARING INTERFACE",
+      "READY"
     ]
 
-    let timeouts: NodeJS.Timeout[] = []
+    let taskIndex = 0
+    const taskInterval = setInterval(() => {
+      if (taskIndex < tasks.length) {
+        setCurrentTask(tasks[taskIndex])
+        taskIndex++
+      }
+    }, 350)
 
-    bootSequence.forEach((item, index) => {
-      const timeout = setTimeout(() => {
-        setLogs(prev => [...prev, { status: "OK", message: item.message }])
-      }, item.delay)
-      timeouts.push(timeout)
-    })
+    // Progress animation
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(progressInterval)
+          return 100
+        }
+        return prev + 5
+      })
+    }, 80)
 
-    // Completion sequence
+    // Completion
     const finalTimeout = setTimeout(() => {
       if (containerRef.current) {
         gsap.to(containerRef.current, {
           opacity: 0,
-          y: -50,
-          duration: 0.5,
+          duration: 0.3,
           ease: "power2.inOut",
           onComplete: onComplete
         })
       }
-    }, 3200)
-
-    timeouts.push(finalTimeout)
+    }, 1800)
 
     return () => {
-      timeouts.forEach(t => clearTimeout(t))
+      clearInterval(taskInterval)
+      clearInterval(progressInterval)
+      clearTimeout(finalTimeout)
     }
   }, [onComplete])
 
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex flex-col justify-start p-10 font-bold"
+      className="fixed inset-0 z-[9999] flex items-end justify-start p-8"
       style={{
-        backgroundColor: '#050505', // Website bg
-        color: '#ffffff',
-        fontFamily: "'Cascadia Code', 'Ubuntu Mono', 'Courier New', monospace",
-        fontSize: '16px',
-        lineHeight: '1.5'
+        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)',
+        fontFamily: "'Cascadia Code', monospace"
       }}
     >
-      <div className="w-full max-w-4xl">
-        {logs.map((log, i) => (
-          <div key={i} className="flex items-center gap-3 mb-1">
-            <span style={{ color: '#6366f1' }}>[  {log.status}  ]</span>
-            <span className="opacity-90">{log.message}</span>
-          </div>
-        ))}
-        <div className="animate-pulse mt-2 text-[#6366f1]">_</div>
+      {/* Scanline overlay */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)',
+          zIndex: 1
+        }}
+      />
+
+      {/* Top right mission info */}
+      <div 
+        className="absolute top-8 right-8 text-right"
+        style={{ zIndex: 2 }}
+      >
+        <div className="text-xs text-gray-500 tracking-widest mb-1">OPERATION</div>
+        <div className="text-xl font-bold text-white tracking-wide">PORTFOLIO_INIT</div>
+        <div className="text-xs text-[#6366f1] mt-1">DAWOOD HUSSAIN</div>
       </div>
+
+      {/* Bottom left loading section */}
+      <div className="relative z-10 w-full max-w-md">
+        {/* Task text */}
+        <div className="mb-4">
+          <div className="text-xs text-gray-500 tracking-widest mb-1">STATUS</div>
+          <div className="text-sm text-white tracking-wide flex items-center gap-2">
+            <span className="inline-block w-2 h-2 bg-[#6366f1] rounded-full animate-pulse"></span>
+            {currentTask}
+          </div>
+        </div>
+
+        {/* Progress bar */}
+        <div className="w-full h-1 bg-gray-800 overflow-hidden">
+          <div 
+            className="h-full transition-all duration-100 ease-out"
+            style={{ 
+              width: `${progress}%`,
+              background: 'linear-gradient(90deg, #6366f1, #8b5cf6)'
+            }}
+          />
+        </div>
+        <div className="flex justify-between mt-2 text-xs text-gray-500">
+          <span>LOADING</span>
+          <span>{progress}%</span>
+        </div>
+      </div>
+
+      {/* Corner decorations */}
+      <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-[#6366f1] opacity-30" />
+      <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-[#6366f1] opacity-30" />
     </div>
   )
 }
