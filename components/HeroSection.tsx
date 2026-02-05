@@ -77,6 +77,7 @@ export function HeroSection() {
           </div>
         </div>
         <div 
+          className="hero-404-frame"
           style={{ 
             width: '100%', 
             height: '400px', 

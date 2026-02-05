@@ -733,6 +733,61 @@ a, button, .cursor-pointer {
   }
 }
 
+/* Large-medium screens (tablets landscape) */
+@media (max-width: 1200px) {
+  .logo {
+    font-size: 1.35rem;
+  }
+
+  .nav-links {
+    gap: 30px;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+
+  .system-status {
+    font-size: 0.75rem;
+  }
+
+  .hero-content h1 {
+    font-size: 4.5rem;
+  }
+}
+
+/* Medium screens (tablets portrait) */
+@media (max-width: 992px) {
+  .logo {
+    font-size: 1.25rem;
+  }
+
+  .nav-links {
+    gap: 25px;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+  }
+
+  .system-status {
+    font-size: 0.7rem;
+  }
+
+  .system-cpu,
+  .system-separator {
+    display: none;
+  }
+
+  header {
+    padding: 12px 25px;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+}
+
 /* Responsive styles for mobile */
 @media (max-width: 768px) {
   .container {
@@ -785,6 +840,30 @@ a, button, .cursor-pointer {
 
   .window-frame {
     box-shadow: 2px 2px 0px var(--accent-retro);
+  }
+
+  .hero-404-frame {
+    height: 280px !important;
+  }
+
+  .hero-404-frame > div:first-child {
+    font-size: 80px !important;
+  }
+
+  .hero-404-frame > div:nth-child(2) {
+    font-size: 14px !important;
+  }
+
+  .hero-404-frame > div:nth-child(2) > div:nth-child(2) {
+    font-size: 12px !important;
+  }
+
+  .hero-404-frame > div:nth-child(2) > div:nth-child(3) {
+    font-size: 10px !important;
+  }
+
+  .hero-404-frame > div:last-child {
+    font-size: 8px !important;
   }
 
   /* Added responsive styles for window control buttons */

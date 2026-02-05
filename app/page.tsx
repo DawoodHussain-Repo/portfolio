@@ -219,7 +219,11 @@ export default function Home() {
             </div>
           )}
           
-          <div className="system-status" style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '12px', color: '#6b7280' }}>SYS_UP: 24:12:05:08 | CPU: 12%</div>
+          <div className="system-status" style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '12px', color: '#6b7280' }}>
+            <span className="system-uptime">SYS_UP: 24:12:05:08</span>
+            <span className="system-separator"> | </span>
+            <span className="system-cpu">CPU: 12%</span>
+          </div>
         </div>
       </header>
 
