@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react"
 import { InteractiveConsole } from "@/components/InteractiveConsole"
 import { ResumeWindow } from "@/components/ResumeWindow"
+import { LoadingScreen } from "@/components/LoadingScreen"
+import { TechStackSection } from "@/components/TechStackSection"
+import { StatsBar } from "@/components/StatsBar"
+import { Download } from "lucide-react"
 
 interface GitHubRepo {
   id: number
@@ -13,6 +17,20 @@ interface GitHubRepo {
   homepage: string | null
   stargazers_count: number
   language: string
+  fork: boolean
+}
+
+// Beautiful project images mapping
+const projectImages: Record<string, string> = {
+  'fintech-forecasting': 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80',
+  'converso-saas': 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80',
+  'cipherchat': 'https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=600&q=80',
+  'airplane-management': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80',
+  'ai-mindful-rating': 'https://images.unsplash.com/photo-1677756119517-756a188d2d94?w=600&q=80',
+  'wisdom-saas': 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80',
+  'pitchify': 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=600&q=80',
+  'portfolio': 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80',
+  'default': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80'
 }
 
 export default function Home() {
@@ -20,6 +38,8 @@ export default function Home() {
   const [showResume, setShowResume] = useState(false)
   const [githubProjects, setGithubProjects] = useState<GitHubRepo[]>([])
   const [loading, setLoading] = useState(true)
+  const [appLoading, setAppLoading] = useState(true)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     // Fetch GitHub repositories
@@ -78,8 +98,14 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
+  const getProjectImage = (projectName: string) => {
+    const normalizedName = projectName.toLowerCase().replace(/[-_]/g, '-')
+    return projectImages[normalizedName] || projectImages.default
+  }
+
   return (
     <>
+      {appLoading && <LoadingScreen onComplete={() => setAppLoading(false)} />}
       <ResumeWindow isOpen={showResume} onClose={() => setShowResume(false)} />
 
       {showScrollTop && (
@@ -89,31 +115,111 @@ export default function Home() {
       )}
 
         <header>
-        <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative" }}>
+          <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img src="/logo.svg" alt="DH Logo" style={{ width: '40px', height: '40px' }} />
-            <span>Dawood Hussain</span>
+            <span style={{ fontFamily: 'var(--font-inter)', fontWeight: '600', fontSize: '18px' }}>Dawood Hussain</span>
           </div>
-          <nav className="nav-links">
-            <a href="#work">PROJECTS</a>
-            <a href="#lab">CONSOLE</a>
-            <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer">GITHUB</a>
+          
+          {/* Desktop Navigation */}
+          <nav className="nav-links" style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+            <a href="#work" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>PROJECTS</a>
+            <a href="#lab" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>CONSOLE</a>
+            <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>GITHUB</a>
             <button 
               onClick={() => setShowResume(true)}
               className="nav-resume-btn"
-              style={{ background: 'transparent', border: 'none', color: 'inherit', cursor: 'pointer', fontSize: 'inherit', fontFamily: 'inherit' }}
+              style={{ 
+                background: 'transparent', 
+                border: 'none', 
+                color: 'inherit', 
+                cursor: 'pointer', 
+                fontFamily: 'var(--font-inter)', 
+                fontWeight: '500', 
+                fontSize: '14px',
+                transition: 'color 0.2s'
+              }}
             >
               RESUME
             </button>
             <a 
-              href="/resume.txt" 
-              download="Dawood-Hussain-Portfolio.txt"
-              style={{ textDecoration: 'none', color: 'inherit' }}
+              href="/Dawood-Hussain.pdf" 
+              download
+              className="btn-download-nav"
             >
-              DOWNLOAD
+              <Download size={16} />
+              PORTFOLIO
             </a>
           </nav>
-          <div className="system-status">SYS_UP: 24:12:05:08 | CPU: 12%</div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              display: 'none',
+              background: 'transparent',
+              border: 'none',
+              color: 'inherit',
+              cursor: 'pointer',
+              fontSize: '24px',
+              padding: '8px'
+            }}
+            className="mobile-menu-btn"
+          >
+            {mobileMenuOpen ? '✕' : '☰'}
+          </button>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div 
+              style={{
+                position: 'absolute',
+                top: '100%',
+                right: '0',
+                background: 'var(--bg-primary)',
+                border: '1px solid #374151',
+                borderRadius: '8px',
+                padding: '16px',
+                minWidth: '200px',
+                zIndex: 1000,
+                boxShadow: '0 10px 25px rgba(0,0,0,0.3)'
+              }}
+              className="mobile-menu"
+            >
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <a href="#work" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit' }}>PROJECTS</a>
+                <a href="#lab" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit' }}>CONSOLE</a>
+                <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit' }}>GITHUB</a>
+                <a 
+                  href="/Dawood-Hussain.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{ 
+                    fontFamily: 'var(--font-inter)', 
+                    fontWeight: '500', 
+                    fontSize: '14px',
+                    textDecoration: 'none',
+                    color: 'inherit'
+                  }}
+                >
+                  RESUME
+                </a>
+                <a 
+                  href="/Dawood-Hussain.pdf" 
+                  download
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="btn-download-nav"
+                  style={{ width: 'fit-content' }}
+                >
+                  <Download size={16} />
+                  PORTFOLIO
+                </a>
+              </div>
+            </div>
+          )}
+          
+          <div className="system-status" style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '12px', color: '#6b7280' }}>SYS_UP: 24:12:05:08 | CPU: 12%</div>
         </div>
       </header>
 
@@ -200,24 +306,12 @@ export default function Home() {
         </section>
 
         {/* Stats */}
-        <div className="stats-bar">
-          <div className="stat-item">
-            <div className="stat-val">05+</div>
-            <div className="stat-label">Years XP</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-val">50+</div>
-            <div className="stat-label">Projects Shipped</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-val">100%</div>
-            <div className="stat-label">Client Satisfied</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-val">10+</div>
-            <div className="stat-label">Tech Stack</div>
-          </div>
-        </div>
+        <StatsBar />
+
+        {/* Tech Stack */}
+        <TechStackSection />
+        
+        {/* Marquee */}
 
         {/* Portfolio */}
         <section id="work">
@@ -251,12 +345,10 @@ export default function Home() {
                         </div>
                       </div>
                       <img
-                        src={`https://opengraph.githubassets.com/1/${project.html_url.replace('https://github.com/', '')}`}
+                        src={getProjectImage(project.name)}
                         alt={project.name}
                         className="project-img"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80'
-                        }}
+                        style={{ objectFit: 'cover', width: '100%', height: '200px' }}
                       />
                       <div className="project-info">
                         <span className="project-tag">
@@ -369,8 +461,8 @@ export default function Home() {
               <span className="badge-label">CONTACT:</span>
               <span className="badge-highlight">dawood90999@gmail.com</span>
               <span className="badge-separator">→</span>
-              <span className="badge-label">BUILT:</span>
-              <span className="badge-highlight">v0.app</span>
+              <span className="badge-label">Deployed:</span>
+              <span className="badge-highlight">Vercel</span>
             </div>
           </a>
         </div>

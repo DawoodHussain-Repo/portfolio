@@ -1,42 +1,51 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono, Space_Mono, Syne } from "next/font/google"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
-const _spaceMono = Space_Mono({
-  weight: ["400", "700"],
+const inter = Inter({ 
   subsets: ["latin"],
-  variable: "--font-space-mono",
+  variable: "--font-inter",
 })
-const _syne = Syne({
-  weight: ["400", "700", "800"],
+
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-syne",
+  variable: "--font-jetbrains-mono",
 })
 
 export const metadata: Metadata = {
   title: "Dawood Hussain - Full-Stack Developer Portfolio",
-  description: "Portfolio of Dawood Hussain - Full-Stack Developer specializing in React, Next.js, Node.js, and modern web technologies. Interactive console & real projects.",
-  generator: "v0.app",
+  description: "Portfolio of Dawood Hussain - Full-Stack Developer specializing in React, Next.js, Node.js, AI/ML, and modern web technologies. Building scalable applications with clean code.",
+  keywords: ["Dawood Hussain", "Full-Stack Developer", "React", "Next.js", "Node.js", "TypeScript", "AI/ML", "TensorFlow", "Portfolio"],
+  authors: [{ name: "Dawood Hussain" }],
+  creator: "Dawood Hussain",
+  publisher: "Dawood Hussain",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://dawood-hussain.vercel.app",
+    title: "Dawood Hussain - Full-Stack Developer",
+    description: "Full-Stack Developer specializing in React, Next.js, Node.js, and AI/ML technologies",
+    siteName: "Dawood Hussain Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dawood Hussain - Full-Stack Developer",
+    description: "Full-Stack Developer specializing in React, Next.js, Node.js, and AI/ML technologies",
+    creator: "@DHussain16725",
+  },
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
+        url: "/logo.svg",
+        type: "image/svg+xml",
       },
       {
         url: "/icon.svg",
         type: "image/svg+xml",
       },
     ],
-    apple: "/apple-icon.png",
   },
 }
 
@@ -47,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${_spaceMono.variable} ${_syne.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

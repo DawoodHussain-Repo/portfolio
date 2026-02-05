@@ -27,7 +27,7 @@ export function InteractiveConsole() {
     
     return parts.map((part, idx) => {
       if (part === '\x1b[32m') {
-        currentColor = '#00ff41'
+        currentColor = 'var(--accent)'
         return null
       } else if (part === '\x1b[0m') {
         currentColor = 'inherit'
@@ -58,6 +58,7 @@ export function InteractiveConsole() {
       '  \x1b[32mgithub\x1b[0m             - Open GitHub profile',
       '  \x1b[32mresume\x1b[0m             - Download resume',
       '  \x1b[32mdownload\x1b[0m           - Download portfolio',
+      '  \x1b[32mportfolio\x1b[0m          - Download Dawood Hussain PDF',
       '  \x1b[32mclear\x1b[0m              - Clear console',
     ],
     about: () => [
@@ -142,6 +143,7 @@ export function InteractiveConsole() {
     social: () => [
       'GitHub: https://github.com/DawoodHussain-Repo',
       'LinkedIn: https://linkedin.com/in/dawood-hussain',
+      'X: https://x.com/DHussain16725',
       'Email: dawood90999@gmail.com',
     ],
     github: () => {
@@ -251,7 +253,7 @@ export function InteractiveConsole() {
                 log.type === 'input'
                   ? 'var(--text-primary)'
                   : log.type === 'error'
-                    ? '#ff6b6b'
+                    ? 'var(--destructive)'
                     : log.type === 'info'
                       ? 'var(--accent)'
                       : 'var(--text-primary)',
@@ -259,7 +261,7 @@ export function InteractiveConsole() {
           >
             {log.type === 'input' ? (
               <>
-                <span style={{ color: '#ff9500', fontWeight: 'bold' }}>guest@dawood:~$</span>
+                <span style={{ color: 'var(--warning)', fontWeight: 'bold' }}>guest@dawood:~$</span>
                 {' ' + log.text}
               </>
             ) : (
@@ -269,7 +271,7 @@ export function InteractiveConsole() {
         ))}
       </div>
       <div className="console-input-row">
-        <span className="prompt" style={{ color: '#ff9500' }}>guest@dawood:~$</span>
+        <span className="prompt" style={{ color: 'var(--warning)' }}>guest@dawood:~$</span>
         <input
           ref={inputRef}
           type="text"
