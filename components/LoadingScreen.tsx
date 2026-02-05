@@ -60,7 +60,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       ref={containerRef}
       className="fixed inset-0 z-[9999] flex items-end justify-start p-8"
       style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)',
+        background: '#050505',
         fontFamily: "'Cascadia Code', monospace"
       }}
     >

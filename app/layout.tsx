@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import Ribbons from "@/components/ui/Ribbons"
 import "./globals.css"
 
 const inter = Inter({ 
@@ -57,6 +58,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 9999 }}>
+          <Ribbons
+            baseThickness={30}
+            colors={["#6366f1"]}
+            speedMultiplier={0.5}
+            maxAge={500}
+            enableFade={false}
+            enableShaderEffect={false}
+          />
+        </div>
         {children}
         <Analytics />
       </body>
