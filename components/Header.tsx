@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Download, X, Menu } from 'lucide-react'
 
 interface HeaderProps {
   onResumeClick: () => void
@@ -11,134 +12,26 @@ export function Header({ onResumeClick }: HeaderProps) {
 
   return (
     <header>
-      <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative" }}>
-        <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <img src="/logo.svg" alt="DH Logo" style={{ width: '40px', height: '40px' }} />
-          <span style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '600', fontSize: '18px' }}>Dawood Hussain</span>
-        </div>
+      <div className="header-inner">
+        <div className="logo">DH</div>
         
-        {/* Desktop Navigation */}
-        <nav className="nav-links" style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
-          <a href="#skills" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>SKILLS</a>
-          <a href="#work" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>PROJECTS</a>
-          <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>GITHUB</a>
-          <button 
-            onClick={onResumeClick}
-            className="nav-resume-btn"
-            style={{ 
-              background: 'transparent', 
-              border: 'none', 
-              color: 'inherit', 
-              cursor: 'pointer', 
-              fontFamily: 'var(--font-bricolage)', 
-              fontWeight: '500', 
-              fontSize: '14px',
-              transition: 'color 0.2s'
-            }}
-          >
-            RESUME
-          </button>
-          <a 
-            href="/resume.txt" 
-            download="Dawood-Hussain-Portfolio.txt"
-            style={{ 
-              textDecoration: 'none', 
-              color: '#ffffff',
-              fontFamily: 'var(--font-bricolage)', 
-              fontWeight: '500', 
-              fontSize: '14px',
-              padding: '8px 16px',
-              border: '1px solid #ffffff',
-              borderRadius: '6px',
-              transition: 'all 0.2s',
-              backgroundColor: 'transparent'
-            }}
-          >
-            DOWNLOAD
+        <nav className="nav-links" style={{ display: mobileMenuOpen ? 'flex' : undefined }}>
+          <a href="#skills" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Skills</a>
+          <a href="#work" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Projects</a>
+          <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a>
+          <a href="/resume.txt" download="Dawood-Hussain-Resume.txt" className="nav-btn">
+            <Download size={16} />
+            <span>Download CV</span>
           </a>
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={{
-            display: 'none',
-            background: 'transparent',
-            border: '1px solid #ffffff',
-            color: '#ffffff',
-            cursor: 'pointer',
-            fontSize: '24px',
-            padding: '8px 12px',
-            borderRadius: '6px'
-          }}
           className="mobile-menu-btn"
           aria-label="Toggle menu"
         >
-          {mobileMenuOpen ? '✕' : '☰'}
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div 
-            style={{
-              position: 'absolute',
-              top: '100%',
-              right: '0',
-              background: '#0a0a0a',
-              border: '1px solid #ffffff',
-              borderRadius: '8px',
-              padding: '16px',
-              minWidth: '200px',
-              zIndex: 1000,
-              marginTop: '10px',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
-            }}
-            className="mobile-menu"
-          >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <a href="#skills" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: '#ffffff' }}>SKILLS</a>
-              <a href="#work" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: '#ffffff' }}>PROJECTS</a>
-              <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: '#ffffff' }}>GITHUB</a>
-              <button 
-                onClick={() => { onResumeClick(); setMobileMenuOpen(false); }}
-                style={{ 
-                  background: 'transparent', 
-                  border: 'none', 
-                  color: '#ffffff', 
-                  cursor: 'pointer', 
-                  fontFamily: 'var(--font-bricolage)', 
-                  fontWeight: '500', 
-                  fontSize: '14px',
-                  textAlign: 'left',
-                  padding: '0'
-                }}
-              >
-                RESUME
-              </button>
-              <a 
-                href="/resume.txt" 
-                download="Dawood-Hussain-Portfolio.txt"
-                onClick={() => setMobileMenuOpen(false)}
-                style={{ 
-                  textDecoration: 'none', 
-                  color: '#ffffff',
-                  fontFamily: 'var(--font-bricolage)', 
-                  fontWeight: '500', 
-                  fontSize: '14px',
-                  padding: '8px 16px',
-                  border: '1px solid #ffffff',
-                  borderRadius: '6px',
-                  textAlign: 'center',
-                  backgroundColor: 'transparent'
-                }}
-              >
-                DOWNLOAD
-              </a>
-            </div>
-          </div>
-        )}
-        
-        <div className="system-status" style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '12px', color: '#6b7280' }}>SYS_UP: 24:12:05:08 | CPU: 12%</div>
       </div>
     </header>
   )

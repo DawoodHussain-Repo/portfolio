@@ -5,8 +5,7 @@ import { Header } from "@/components/Header"
 import { HeroSection } from "@/components/HeroSection"
 import { StatsBar } from "@/components/StatsBar"
 import { SkillsSection } from "@/components/SkillsSection"
-import { FeaturedProjects } from "@/components/FeaturedProjects"
-import { Marquee } from "@/components/Marquee"
+import { ProjectsSection } from "@/components/ProjectsSection"
 import { Footer } from "@/components/Footer"
 import { ResumeWindow } from "@/components/ResumeWindow"
 
@@ -60,15 +59,15 @@ export default function Home() {
 
       <Header onResumeClick={() => setShowResume(true)} />
 
+      <HeroSection />
+      <StatsBar />
+      
       <div className="container">
-        <HeroSection />
-        <StatsBar />
         <SkillsSection />
-        <FeaturedProjects />
       </div>
 
-      <Marquee />
-
+      <ProjectsSection />
+      
       <div className="container">
         <Footer />
       </div>
