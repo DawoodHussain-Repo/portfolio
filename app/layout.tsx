@@ -1,12 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
+import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const inter = Inter({ 
+const bricolageGrotesque = Bricolage_Grotesque({ 
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-bricolage",
 })
 
 const jetbrainsMono = JetBrains_Mono({
@@ -41,10 +41,6 @@ export const metadata: Metadata = {
         url: "/logo.svg",
         type: "image/svg+xml",
       },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
     ],
   },
 }
@@ -56,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${bricolageGrotesque.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

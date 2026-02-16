@@ -14,14 +14,14 @@ export function Header({ onResumeClick }: HeaderProps) {
       <div className="container" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", position: "relative" }}>
         <div className="logo" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <img src="/logo.svg" alt="DH Logo" style={{ width: '40px', height: '40px' }} />
-          <span style={{ fontFamily: 'var(--font-inter)', fontWeight: '600', fontSize: '18px' }}>Dawood Hussain</span>
+          <span style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '600', fontSize: '18px' }}>Dawood Hussain</span>
         </div>
         
         {/* Desktop Navigation */}
         <nav className="nav-links" style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
-          <a href="#work" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>PROJECTS</a>
-          <a href="#lab" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>CONSOLE</a>
-          <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>GITHUB</a>
+          <a href="#skills" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>SKILLS</a>
+          <a href="#work" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>PROJECTS</a>
+          <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit', transition: 'color 0.2s' }}>GITHUB</a>
           <button 
             onClick={onResumeClick}
             className="nav-resume-btn"
@@ -30,7 +30,7 @@ export function Header({ onResumeClick }: HeaderProps) {
               border: 'none', 
               color: 'inherit', 
               cursor: 'pointer', 
-              fontFamily: 'var(--font-inter)', 
+              fontFamily: 'var(--font-bricolage)', 
               fontWeight: '500', 
               fontSize: '14px',
               transition: 'color 0.2s'
@@ -43,12 +43,12 @@ export function Header({ onResumeClick }: HeaderProps) {
             download="Dawood-Hussain-Portfolio.txt"
             style={{ 
               textDecoration: 'none', 
-              color: 'inherit',
-              fontFamily: 'var(--font-inter)', 
+              color: '#ffffff',
+              fontFamily: 'var(--font-bricolage)', 
               fontWeight: '500', 
               fontSize: '14px',
               padding: '8px 16px',
-              border: '1px solid #6366f1',
+              border: '1px solid #ffffff',
               borderRadius: '6px',
               transition: 'all 0.2s',
               backgroundColor: 'transparent'
@@ -64,13 +64,15 @@ export function Header({ onResumeClick }: HeaderProps) {
           style={{
             display: 'none',
             background: 'transparent',
-            border: 'none',
-            color: 'inherit',
+            border: '1px solid #ffffff',
+            color: '#ffffff',
             cursor: 'pointer',
             fontSize: '24px',
-            padding: '8px'
+            padding: '8px 12px',
+            borderRadius: '6px'
           }}
           className="mobile-menu-btn"
+          aria-label="Toggle menu"
         >
           {mobileMenuOpen ? '✕' : '☰'}
         </button>
@@ -82,28 +84,29 @@ export function Header({ onResumeClick }: HeaderProps) {
               position: 'absolute',
               top: '100%',
               right: '0',
-              background: 'var(--bg-primary)',
-              border: '1px solid #374151',
+              background: '#0a0a0a',
+              border: '1px solid #ffffff',
               borderRadius: '8px',
               padding: '16px',
               minWidth: '200px',
               zIndex: 1000,
-              boxShadow: '0 10px 25px rgba(0,0,0,0.3)'
+              marginTop: '10px',
+              boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
             }}
             className="mobile-menu"
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <a href="#work" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit' }}>PROJECTS</a>
-              <a href="#lab" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit' }}>CONSOLE</a>
-              <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-inter)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: 'inherit' }}>GITHUB</a>
+              <a href="#skills" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: '#ffffff' }}>SKILLS</a>
+              <a href="#work" onClick={() => setMobileMenuOpen(false)} style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: '#ffffff' }}>PROJECTS</a>
+              <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-bricolage)', fontWeight: '500', fontSize: '14px', textDecoration: 'none', color: '#ffffff' }}>GITHUB</a>
               <button 
                 onClick={() => { onResumeClick(); setMobileMenuOpen(false); }}
                 style={{ 
                   background: 'transparent', 
                   border: 'none', 
-                  color: 'inherit', 
+                  color: '#ffffff', 
                   cursor: 'pointer', 
-                  fontFamily: 'var(--font-inter)', 
+                  fontFamily: 'var(--font-bricolage)', 
                   fontWeight: '500', 
                   fontSize: '14px',
                   textAlign: 'left',
@@ -118,12 +121,12 @@ export function Header({ onResumeClick }: HeaderProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 style={{ 
                   textDecoration: 'none', 
-                  color: 'inherit',
-                  fontFamily: 'var(--font-inter)', 
+                  color: '#ffffff',
+                  fontFamily: 'var(--font-bricolage)', 
                   fontWeight: '500', 
                   fontSize: '14px',
                   padding: '8px 16px',
-                  border: '1px solid #6366f1',
+                  border: '1px solid #ffffff',
                   borderRadius: '6px',
                   textAlign: 'center',
                   backgroundColor: 'transparent'

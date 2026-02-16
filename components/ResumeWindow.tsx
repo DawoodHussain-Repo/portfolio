@@ -1,135 +1,106 @@
-'use client'
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from "react";
+import { Minus, ExternalLink, X } from "lucide-react";
 
 interface ResumeWindowProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export function ResumeWindow({ isOpen, onClose }: ResumeWindowProps) {
-  const [isMinimized, setIsMinimized] = useState(false)
-  const [position, setPosition] = useState({ x: 50, y: 100 }) // Initial position below navbar
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
-  const windowRef = useRef<HTMLDivElement>(null)
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [position, setPosition] = useState({ x: 50, y: 100 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const windowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging) {
         setPosition({
           x: e.clientX - dragOffset.x,
-          y: e.clientY - dragOffset.y
-        })
+          y: e.clientY - dragOffset.y,
+        });
       }
-    }
-
-    const handleMouseUp = () => {
-      setIsDragging(false)
-    }
+    };
+    const handleMouseUp = () => setIsDragging(false);
 
     if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove)
-      document.addEventListener('mouseup', handleMouseUp)
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
     }
-
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
-    }
-  }, [isDragging, dragOffset])
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, dragOffset]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Only drag from header
-    if ((e.target as HTMLElement).closest('.window-controls')) return;
-    
-    setIsDragging(true)
+    if ((e.target as HTMLElement).closest(".window-controls")) return;
+    setIsDragging(true);
     setDragOffset({
       x: e.clientX - position.x,
-      y: e.clientY - position.y
-    })
-  }
+      y: e.clientY - position.y,
+    });
+  };
 
-  const handleFullscreen = () => {
-    window.open('/Dawood-Hussain.pdf', '_blank')
-  }
-
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   return (
     <div
       ref={windowRef}
-      className={`resume-window ${isMinimized ? 'minimized' : ''}`}
+      className="fixed z-[1000] flex flex-col rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg)] shadow-2xl"
       style={{
-        position: 'fixed',
         left: `${position.x}px`,
         top: `${position.y}px`,
-        width: isMinimized ? '300px' : '800px',
-        maxWidth: '90vw',
-        height: isMinimized ? 'auto' : '80vh',
-        zIndex: 1000,
-        boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
-        display: 'flex',
-        flexDirection: 'column',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        border: '1px solid #333'
+        width: isMinimized ? "300px" : "800px",
+        maxWidth: "90vw",
+        height: isMinimized ? "auto" : "80vh",
       }}
     >
-      <div 
-        className="resume-header" 
-        style={{ 
-          background: '#1f1f1f', 
-          color: '#e0e0e0', 
-          padding: '10px 15px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          cursor: 'grab',
-          borderBottom: '1px solid #333',
-          userSelect: 'none'
-        }}
+      {/* Title bar */}
+      <div
+        className="flex items-center justify-between px-4 py-3 border-b border-[var(--border)] cursor-grab select-none bg-[var(--bg-secondary)]"
         onMouseDown={handleMouseDown}
       >
-        <span style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', fontWeight: 500 }}>RESUME_DAWOOD_HUSSAIN.PDF</span>
-        <div className="window-controls" style={{ display: 'flex', gap: '8px' }}>
+        <span className="text-xs font-mono tracking-wider text-[var(--fg-muted)]">
+          RESUME.PDF
+        </span>
+        <div className="window-controls flex items-center gap-2">
           <button
-            className="window-btn"
-            aria-label="Minimize"
             onClick={() => setIsMinimized(!isMinimized)}
-            style={{ padding: '4px', background: 'transparent', border: 'none', cursor: 'pointer', color: '#9ca3af' }}
+            className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-[var(--bg-tertiary)] text-[var(--fg-muted)] transition-colors bg-transparent border-none cursor-pointer"
+            aria-label="Minimize"
           >
-            <span className="minimize-icon" style={{ display: 'block', width: '12px', height: '2px', background: 'currentColor' }}></span>
+            <Minus className="w-3 h-3" />
           </button>
           <button
-            className="window-btn"
-            aria-label="New Tab"
-            onClick={handleFullscreen}
-            style={{ padding: '4px', background: 'transparent', border: 'none', cursor: 'pointer', color: '#9ca3af' }}
+            onClick={() => window.open("/Dawood-Hussain.pdf", "_blank")}
+            className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-[var(--bg-tertiary)] text-[var(--fg-muted)] transition-colors bg-transparent border-none cursor-pointer"
+            aria-label="Open in new tab"
           >
-           <span style={{ fontSize: '14px' }}>↗</span>
+            <ExternalLink className="w-3 h-3" />
           </button>
           <button
-            className="window-btn window-close"
-            aria-label="Close"
             onClick={onClose}
-            style={{ padding: '4px', background: 'transparent', border: 'none', cursor: 'pointer', color: '#ff5f57' }}
+            className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-[var(--bg-tertiary)] text-[var(--fg-muted)] transition-colors bg-transparent border-none cursor-pointer"
+            aria-label="Close"
           >
-            <span style={{ fontSize: '16px', lineHeight: 0.5 }}>×</span>
+            <X className="w-3 h-3" />
           </button>
         </div>
       </div>
 
       {!isMinimized && (
-        <div className="resume-content" style={{ flex: 1, background: '#1a1a1a', position: 'relative' }}>
+        <div className="flex-1 bg-[var(--bg-tertiary)]">
           <iframe
             src="/Dawood-Hussain.pdf"
-            className="resume-iframe"
             title="Resume"
-            style={{ width: '100%', height: '100%', border: 'none' }}
+            className="w-full h-full border-none"
           />
         </div>
       )}
     </div>
-  )
+  );
 }
