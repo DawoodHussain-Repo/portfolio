@@ -1,85 +1,124 @@
-'use client'
+"use client";
 
-import { useEffect, useRef } from 'react'
-import { Mail, MapPin, Phone, ArrowRight, Github } from 'lucide-react'
-import gsap from 'gsap'
+import { useEffect, useRef } from "react";
+import { Mail, MapPin, Phone, ArrowRight, Github } from "lucide-react";
+import gsap from "gsap";
 
 export function HeroSection() {
-  const heroRef = useRef<HTMLElement>(null)
-  const profileRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.hero-eyebrow', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        delay: 0.2
-      })
-      
-      gsap.from('.hero-title', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        delay: 0.4
-      })
-      
-      gsap.from('.hero-description', {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        delay: 0.6
-      })
-      
-      gsap.from('.meta-item', {
-        opacity: 0,
-        x: -20,
-        duration: 0.5,
-        stagger: 0.1,
-        delay: 0.8
-      })
-      
-      gsap.from('.hero-actions .btn-primary, .hero-actions .btn-secondary', {
-        opacity: 0,
-        y: 20,
-        duration: 0.5,
-        stagger: 0.15,
-        delay: 1
-      })
+      gsap.fromTo(
+        ".hero-eyebrow",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: 0.2,
+          clearProps: "transform,opacity",
+        },
+      );
+
+      gsap.fromTo(
+        ".hero-title",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.4,
+          clearProps: "transform,opacity",
+        },
+      );
+
+      gsap.fromTo(
+        ".hero-description",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: 0.6,
+          clearProps: "transform,opacity",
+        },
+      );
+
+      gsap.fromTo(
+        ".meta-item",
+        { opacity: 0, x: -20 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          delay: 0.8,
+          clearProps: "transform,opacity",
+        },
+      );
+
+      gsap.fromTo(
+        ".hero-actions .btn-primary, .hero-actions .btn-secondary",
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.15,
+          delay: 1,
+          clearProps: "transform,opacity",
+        },
+      );
 
       if (profileRef.current) {
-        gsap.from(profileRef.current, {
-          scale: 0,
-          opacity: 0,
-          duration: 0.8,
-          delay: 0.5,
-          ease: 'back.out(1.7)'
-        })
+        gsap.fromTo(
+          profileRef.current,
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.8,
+            delay: 0.5,
+            ease: "back.out(1.7)",
+            clearProps: "transform,opacity",
+          },
+        );
       }
 
-      gsap.from('.hero-badge', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        delay: 1.2
-      })
-    }, heroRef)
+      gsap.fromTo(
+        ".hero-badge",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          delay: 1.2,
+          clearProps: "transform,opacity",
+        },
+      );
+    }, heroRef);
 
-    return () => ctx.revert()
-  }, [])
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section className="hero" ref={heroRef}>
       <div className="hero-content">
         <div className="hero-left">
           <div className="hero-eyebrow">Full-Stack Developer</div>
-          
+
           <h1 className="hero-title">
-            Dawood<br/>Hussain
+            Dawood
+            <br />
+            Hussain
           </h1>
-          
+
           <p className="hero-description">
-            Software Engineering student at FAST NUCES, Islamabad. Specializing in building scalable applications with modern technologies, AI/ML integration, and full-stack development.
+            Software Engineering student at FAST NUCES, Islamabad. Specializing
+            in building scalable applications with modern technologies, AI/ML
+            integration, and full-stack development.
           </p>
 
           <div className="hero-meta">
@@ -102,7 +141,12 @@ export function HeroSection() {
               <span>View Projects</span>
               <ArrowRight size={18} />
             </a>
-            <a href="https://github.com/DawoodHussain-Repo" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+            <a
+              href="https://github.com/DawoodHussain-Repo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary"
+            >
               <Github size={18} />
               <span>GitHub</span>
             </a>
@@ -111,16 +155,16 @@ export function HeroSection() {
 
         <div className="hero-center">
           <div className="hero-profile" ref={profileRef}>
-            <img 
-              src="/profile.jpg" 
-              alt="Dawood Hussain" 
+            <img
+              src="/profile.jpg"
+              alt="Dawood Hussain"
               className="profile-image"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none'
+                (e.target as HTMLImageElement).style.display = "none";
               }}
             />
           </div>
-          
+
           <div className="hero-badge">
             <div className="badge-label">Education</div>
             <div className="badge-value">FAST NUCES</div>
@@ -129,5 +173,5 @@ export function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

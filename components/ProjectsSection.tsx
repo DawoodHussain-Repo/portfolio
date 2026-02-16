@@ -82,17 +82,23 @@ export function ProjectsSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".project-card", {
-        scrollTrigger: {
-          trigger: ".projects-grid",
-          start: "top 80%",
+      gsap.fromTo(
+        ".project-card",
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger: ".projects-grid",
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power2.out",
+          clearProps: "transform,opacity",
         },
-        opacity: 0,
-        y: 50,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power2.out",
-      });
+      );
     }, sectionRef);
 
     return () => ctx.revert();
