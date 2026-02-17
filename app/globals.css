@@ -1352,12 +1352,13 @@ footer {
 
 .highlight-number {
   position: absolute;
-  bottom: 40px;
+  bottom: 24px;
   left: 40px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.1em;
   opacity: 0.4;
+  z-index: 1;
 }
 
 .highlight-graphic-container {
@@ -1436,6 +1437,12 @@ footer {
   .highlight-card {
     padding: 32px 24px;
     min-height: 260px;
+  }
+
+  .highlight-number {
+    bottom: 20px;
+    left: 24px;
+    font-size: 12px;
   }
 
   .highlight-title {

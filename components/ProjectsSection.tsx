@@ -199,8 +199,8 @@ export function ProjectsSection() {
                   <h3 className="highlight-title">{highlight.title}</h3>
                   <p className="highlight-subtitle">{highlight.subtitle}</p>
                   <p className="highlight-description">{highlight.description}</p>
-                  <div className="highlight-number">{highlight.number}</div>
                 </div>
+                <div className="highlight-number">{highlight.number}</div>
                 <div className="highlight-graphic-container">
                   {renderGraphic(highlight.graphic)}
                 </div>
@@ -218,8 +218,8 @@ export function ProjectsSection() {
                   <h3 className="highlight-title">{highlight.title}</h3>
                   <p className="highlight-subtitle">{highlight.subtitle}</p>
                   <p className="highlight-description">{highlight.description}</p>
-                  <div className="highlight-number">{highlight.number}</div>
                 </div>
+                <div className="highlight-number">{highlight.number}</div>
                 <div className="highlight-graphic-container">
                   {renderGraphic(highlight.graphic)}
                 </div>
