@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { Header } from "@/components/Header"
 import { HeroSection } from "@/components/HeroSection"
-import { StatsBar } from "@/components/StatsBar"
 import { SkillsSection } from "@/components/SkillsSection"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { Footer } from "@/components/Footer"
@@ -60,7 +59,6 @@ export default function Home() {
       <Header onResumeClick={() => setShowResume(true)} />
 
       <HeroSection />
-      <StatsBar />
       
       <div className="container">
         <SkillsSection />
