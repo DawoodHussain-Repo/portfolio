@@ -7,162 +7,236 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const projects = [
+const highlights = [
   {
     number: "01",
-    title: "Fintech Forecasting Application",
-    subtitle: "AI-Powered Financial Predictions",
+    title: "5+ Major Projects",
+    subtitle: "Full-Stack Development",
     description:
-      "Engineered financial forecasting platform with LSTM, GRU, and ARIMA models for stock, crypto, and forex predictions. Containerized with Docker for scalable deployment with 80% latency reduction.",
-    tech: ["Python", "Flask", "TensorFlow", "MongoDB", "Docker"],
-    github: "https://github.com/DawoodHussain-Repo",
+      "Engineered diverse applications from fintech forecasting to encrypted messaging platforms.",
+    theme: "dark",
+    graphic: "lines",
   },
   {
     number: "02",
-    title: "Converso SaaS App",
-    subtitle: "AI Educational Platform",
+    title: "AI/ML Integration",
+    subtitle: "Machine Learning & NLP",
     description:
-      "Built full-stack SaaS platform for AI-powered educational companions with authentication and premium features. Architected scalable backend with Supabase and integrated Sentry for production monitoring.",
-    tech: [
-      "Next.js",
-      "React 19",
-      "Tailwind CSS",
-      "Supabase",
-      "Vapi AI",
-      "Clerk",
-    ],
-    github: "https://github.com/DawoodHussain-Repo",
+      "Built AI-powered platforms using TensorFlow, LangChain, and advanced neural networks.",
+    theme: "light",
+    graphic: "dots",
   },
   {
     number: "03",
-    title: "CipherChat",
-    subtitle: "Encrypted Messaging Platform",
+    title: "16+ Technologies",
+    subtitle: "Modern Tech Stack",
     description:
-      "Designed secure messaging app with AES-256-GCM encryption, ECDH key exchange, and zero-knowledge architecture. Built RESTful API with Express.js and MongoDB with Socket.io for real-time delivery.",
-    tech: [
-      "React.js",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "Socket.io",
-      "Web Crypto API",
-    ],
-    github: "https://github.com/DawoodHussain-Repo",
+      "Proficient in React, Next.js, Node.js, Python, Docker, and cloud deployment.",
+    theme: "dark",
+    graphic: "radial",
   },
   {
     number: "04",
-    title: "Airplane Management System",
-    subtitle: "Airline Operations Platform",
+    title: "Production-Ready Applications",
+    subtitle: "Scalable & Secure Systems",
     description:
-      "Developed full-stack airline operations system with role-based access control and CRUD operations. Built RESTful API with Node.js/Express and integrated JWT authentication with Stripe payment processing.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "Stripe"],
-    github: "https://github.com/DawoodHussain-Repo",
-  },
-  {
-    number: "05",
-    title: "AI Mindful Rating Agent",
-    subtitle: "Educational AI Platform",
-    description:
-      "Built AI educational platform with Flask backend using LangGraph/LangChain for agent orchestration. Implemented ChromaDB vector database for semantic search with real-time voice AI integration.",
-    tech: [
-      "Flask",
-      "LangGraph",
-      "LangChain",
-      "ChromaDB",
-      "Sentence Transformers",
-    ],
-    github: "https://github.com/DawoodHussain-Repo",
+      "Developed enterprise-grade applications with authentication, real-time features, payment processing, and containerized deployment. Implemented best practices for security, performance optimization, and monitoring.",
+    theme: "light-wide",
+    graphic: "geometric",
   },
 ];
 
 export function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const totalProjects = 8; // Total number of projects on GitHub
-  const remainingProjects = totalProjects - projects.length;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".project-card",
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: ".projects-grid",
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-          duration: 0.6,
-          stagger: 0.15,
-          ease: "power2.out",
-          clearProps: "transform,opacity",
+      gsap.from(".highlight-card", {
+        scrollTrigger: {
+          trigger: ".highlights-container",
+          start: "top 80%",
         },
-      );
+        opacity: 0,
+        y: 50,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power2.out",
+      });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
+  const renderGraphic = (type: string) => {
+    switch (type) {
+      case "lines":
+        return (
+          <svg className="highlight-graphic" viewBox="0 0 200 200" fill="none">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <line
+                key={i}
+                x1="0"
+                y1={10 + i * 10}
+                x2="200"
+                y2={10 + i * 10}
+                stroke="currentColor"
+                strokeWidth="1"
+                opacity="0.3"
+              />
+            ))}
+            <line
+              x1="20"
+              y1="0"
+              x2="180"
+              y2="200"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </svg>
+        );
+      case "dots":
+        return (
+          <svg className="highlight-graphic" viewBox="0 0 200 200" fill="none">
+            {Array.from({ length: 15 }).map((_, i) =>
+              Array.from({ length: 15 }).map((_, j) => (
+                <circle
+                  key={`${i}-${j}`}
+                  cx={10 + j * 13}
+                  cy={10 + i * 13}
+                  r="1.5"
+                  fill="currentColor"
+                  opacity="0.2"
+                />
+              ))
+            )}
+            <circle
+              cx="150"
+              cy="150"
+              r="40"
+              stroke="currentColor"
+              strokeWidth="1"
+              opacity="0.4"
+            />
+          </svg>
+        );
+      case "radial":
+        return (
+          <svg className="highlight-graphic" viewBox="0 0 200 200" fill="none">
+            {Array.from({ length: 60 }).map((_, i) => {
+              const angle = (i * 6 * Math.PI) / 180;
+              const x1 = 100;
+              const y1 = 100;
+              const x2 = Math.round(100 + Math.cos(angle) * (40 + (i % 3) * 10) * 100) / 100;
+              const y2 = Math.round(100 + Math.sin(angle) * (40 + (i % 3) * 10) * 100) / 100;
+              return (
+                <line
+                  key={i}
+                  x1={x1}
+                  y1={y1}
+                  x2={x2}
+                  y2={y2}
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  opacity="0.3"
+                />
+              );
+            })}
+          </svg>
+        );
+      case "geometric":
+        return (
+          <svg
+            className="highlight-graphic-wide"
+            viewBox="0 0 300 200"
+            fill="none"
+          >
+            <path
+              d="M250 150 L280 100 L250 50 L220 100 Z"
+              stroke="currentColor"
+              strokeWidth="1"
+              opacity="0.3"
+            />
+            <path
+              d="M260 120 L280 100 L260 80"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              opacity="0.5"
+            />
+            <line
+              x1="220"
+              y1="100"
+              x2="280"
+              y2="100"
+              stroke="currentColor"
+              strokeWidth="1"
+              opacity="0.3"
+            />
+          </svg>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
-    <section className="projects-section" id="work" ref={sectionRef}>
+    <section className="highlights-section" id="work" ref={sectionRef}>
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">Featured Projects</h2>
+          <h2 className="section-title">Featured Highlights</h2>
           <p className="section-subtitle">
-            A selection of projects demonstrating full-stack development, AI/ML
-            integration, and modern web technologies
+            Key achievements and technical capabilities
           </p>
         </div>
-      </div>
 
-      <div className="projects-grid">
-        {projects.map((project) => (
-          <div key={project.number} className="project-card">
-            <div className="project-number">{project.number}</div>
-
-            <h3 className="project-title">{project.title}</h3>
-            <p className="project-subtitle">{project.subtitle}</p>
-
-            <p className="project-description">{project.description}</p>
-
-            <div className="project-tech">
-              {project.tech.map((tech, idx) => (
-                <span key={idx} className="tech-tag">
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <div className="project-actions">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-btn project-btn-primary"
+        <div className="highlights-container">
+          <div className="highlights-grid-top">
+            {highlights.slice(0, 3).map((highlight) => (
+              <div
+                key={highlight.number}
+                className={`highlight-card highlight-card-${highlight.theme}`}
               >
-                <Github size={16} />
-                <span>View Code</span>
-              </a>
-            </div>
+                <div className="highlight-content">
+                  <h3 className="highlight-title">{highlight.title}</h3>
+                  <p className="highlight-subtitle">{highlight.subtitle}</p>
+                  <p className="highlight-description">{highlight.description}</p>
+                  <div className="highlight-number">{highlight.number}</div>
+                </div>
+                <div className="highlight-graphic-container">
+                  {renderGraphic(highlight.graphic)}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
 
-        <div className="project-card project-card-more">
-          <div className="more-content">
-            <Github size={48} className="more-icon" />
-            <h3 className="more-title">View More Projects</h3>
-            <p className="more-count">
-              +{remainingProjects} more projects on GitHub
-            </p>
+          <div className="highlights-grid-bottom">
+            {highlights.slice(3).map((highlight) => (
+              <div
+                key={highlight.number}
+                className={`highlight-card highlight-card-${highlight.theme}`}
+              >
+                <div className="highlight-content">
+                  <h3 className="highlight-title">{highlight.title}</h3>
+                  <p className="highlight-subtitle">{highlight.subtitle}</p>
+                  <p className="highlight-description">{highlight.description}</p>
+                  <div className="highlight-number">{highlight.number}</div>
+                </div>
+                <div className="highlight-graphic-container">
+                  {renderGraphic(highlight.graphic)}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="highlights-cta">
             <a
               href="https://github.com/DawoodHussain-Repo?tab=repositories"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-btn project-btn-primary"
+              className="cta-button-highlight"
             >
-              <span>View on GitHub</span>
-              <ArrowRight size={16} />
+              <Github size={20} />
+              <span>View All Projects on GitHub</span>
+              <ArrowRight size={20} />
             </a>
           </div>
         </div>

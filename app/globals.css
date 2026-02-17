@@ -415,9 +415,12 @@ header {
   filter: grayscale(0%) contrast(1);
 }
 
-/* Skills Section - 5x4 Grid */
+/* Skills Section - Bordered Grid */
 .skills-section {
   padding: 120px 0;
+  border-top: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  background: var(--white);
 }
 
 .section-header {
@@ -441,31 +444,45 @@ header {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid var(--black);
+  background: var(--black);
 }
 
 .skill-item {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 24px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 12px;
+  gap: 24px;
+  padding: 28px 40px;
+  background: var(--white);
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  transition: background 0.2s;
+}
+
+.skill-item:nth-child(2n) {
+  border-right: none;
+}
+
+.skill-item:nth-last-child(-n+2) {
+  border-bottom: none;
 }
 
 .skill-item:hover {
-  transform: translateY(-5px);
   background: var(--gray-100);
 }
 
 .skill-icon {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
+}
+
+.skill-name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .skill-name {
@@ -1171,5 +1188,203 @@ footer {
 
   .hero-left {
     align-items: flex-start;
+  }
+}
+
+
+/* Highlights Section - Card-Based Design */
+.highlights-section {
+  padding: 120px 0;
+  background: var(--white);
+}
+
+.highlights-container {
+  margin-top: 80px;
+}
+
+.highlights-grid-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.highlights-grid-bottom {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.highlight-card {
+  position: relative;
+  border: 1px solid var(--black);
+  padding: 40px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px);
+}
+
+.highlight-card-dark {
+  background: var(--black);
+  color: var(--white);
+}
+
+.highlight-card-light {
+  background: var(--gray-100);
+  color: var(--black);
+}
+
+.highlight-card-light-wide {
+  background: var(--gray-100);
+  color: var(--black);
+  min-height: 280px;
+}
+
+.highlight-content {
+  position: relative;
+  z-index: 2;
+}
+
+.highlight-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.highlight-subtitle {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+
+.highlight-description {
+  font-size: 15px;
+  line-height: 1.6;
+  opacity: 0.8;
+  margin-bottom: 24px;
+}
+
+.highlight-number {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  opacity: 0.4;
+}
+
+.highlight-graphic-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.highlight-graphic {
+  width: 200px;
+  height: 200px;
+  opacity: 0.6;
+}
+
+.highlight-graphic-wide {
+  width: 300px;
+  height: 200px;
+  opacity: 0.6;
+}
+
+.highlight-card-dark .highlight-graphic,
+.highlight-card-dark .highlight-graphic-wide {
+  color: var(--white);
+}
+
+.highlight-card-light .highlight-graphic,
+.highlight-card-light .highlight-graphic-wide,
+.highlight-card-light-wide .highlight-graphic,
+.highlight-card-light-wide .highlight-graphic-wide {
+  color: var(--black);
+}
+
+.highlights-cta {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.cta-button-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 36px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--black);
+  border: 1px solid var(--black);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cta-button-highlight:hover {
+  background: var(--white);
+  color: var(--black);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .highlights-grid-top {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .highlight-card {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .highlights-section {
+    padding: 80px 0;
+  }
+
+  .highlight-card {
+    padding: 32px 24px;
+    min-height: 260px;
+  }
+
+  .highlight-title {
+    font-size: 1.5rem;
+  }
+
+  .highlight-description {
+    font-size: 14px;
+  }
+
+  .highlight-graphic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .highlight-graphic-wide {
+    width: 200px;
+    height: 150px;
+  }
+
+  .highlight-number {
+    bottom: 24px;
+    left: 24px;
   }
 }
