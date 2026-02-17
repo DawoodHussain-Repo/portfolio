@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download, X, Menu } from "lucide-react";
+import { Download, X, Menu, Code2, Briefcase, Github } from "lucide-react";
 
 interface HeaderProps {
   onResumeClick: () => void;
@@ -33,14 +33,16 @@ export function Header({ onResumeClick }: HeaderProps) {
             className="nav-link"
             onClick={() => setMobileMenuOpen(false)}
           >
-            Skills
+            <Code2 size={18} />
+            <span>Skills</span>
           </a>
           <a
             href="#work"
             className="nav-link"
             onClick={() => setMobileMenuOpen(false)}
           >
-            Projects
+            <Briefcase size={18} />
+            <span>Projects</span>
           </a>
           <a
             href="https://github.com/DawoodHussain-Repo"
@@ -49,11 +51,12 @@ export function Header({ onResumeClick }: HeaderProps) {
             className="nav-link"
             onClick={() => setMobileMenuOpen(false)}
           >
-            GitHub
+            <Github size={18} />
+            <span>GitHub</span>
           </a>
           <a
-            href="/resume.txt"
-            download="Dawood-Hussain-Resume.txt"
+            href="/Dawood-Hussain.pdf"
+            download="Dawood-Hussain-Resume.pdf"
             className="nav-btn"
             onClick={() => setMobileMenuOpen(false)}
           >

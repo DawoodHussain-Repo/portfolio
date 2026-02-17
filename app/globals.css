@@ -32,6 +32,20 @@ body {
   color: var(--black);
   line-height: 1.6;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
 }
 
 .container {
@@ -58,6 +72,11 @@ header {
   padding: 24px 60px;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
 .logo {
   font-size: 24px;
   font-weight: 700;
@@ -67,7 +86,7 @@ header {
 
 .nav-links {
   display: flex;
-  gap: 40px;
+  gap: 48px;
   align-items: center;
 }
 
@@ -82,15 +101,24 @@ header {
   cursor: pointer;
   font-family: inherit;
   position: relative;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link span {
+  position: relative;
+  z-index: 1;
 }
 
 .nav-link::after {
   content: "";
   position: absolute;
-  bottom: -4px;
+  bottom: 0;
   left: 0;
   width: 0;
-  height: 1.5px;
+  height: 2px;
   background: var(--black);
   transition: width 0.3s ease;
 }
@@ -709,6 +737,9 @@ footer {
   color: var(--black);
   text-decoration: none;
   transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .footer-links a:hover {
@@ -727,6 +758,8 @@ footer {
 .footer-copyright {
   font-size: 14px;
   color: var(--gray-500);
+  display: flex;
+  align-items: center;
 }
 
 .footer-social {
@@ -902,6 +935,12 @@ footer {
     font-weight: 600;
     padding: 20px 0;
     border-bottom: 1px solid var(--gray-200);
+    gap: 12px;
+  }
+
+  .nav-links .nav-link svg {
+    width: 20px;
+    height: 20px;
   }
 
   .nav-links .nav-btn {
@@ -1022,21 +1061,22 @@ footer {
   }
 
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0;
     background: var(--white);
   }
 
   .skill-item {
-    padding: 20px 24px;
-    border-right: none !important;
-  }
-
-  .skill-item:not(:last-child) {
+    padding: 20px 20px;
+    border-right: 1px solid var(--black);
     border-bottom: 1px solid var(--black);
   }
 
-  .skill-item:last-child {
+  .skill-item:nth-child(2n) {
+    border-right: none;
+  }
+
+  .skill-item:nth-last-child(-n+2) {
     border-bottom: none;
   }
 
@@ -1046,7 +1086,7 @@ footer {
   }
 
   .skill-name {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   /* Projects mobile */
@@ -1141,21 +1181,22 @@ footer {
   }
 
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0;
     background: var(--white);
   }
 
   .skill-item {
-    padding: 18px 20px;
-    border-right: none !important;
-  }
-
-  .skill-item:not(:last-child) {
+    padding: 18px 16px;
+    border-right: 1px solid var(--black);
     border-bottom: 1px solid var(--black);
   }
 
-  .skill-item:last-child {
+  .skill-item:nth-child(2n) {
+    border-right: none;
+  }
+
+  .skill-item:nth-last-child(-n+2) {
     border-bottom: none;
   }
 
@@ -1165,7 +1206,7 @@ footer {
   }
 
   .skill-name {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .stats-grid {
